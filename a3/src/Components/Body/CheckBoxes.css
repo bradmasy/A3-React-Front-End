@@ -1,0 +1,47 @@
+@font-face {
+    font-family: "pokemon-solid";
+    src: url(../Global-Styles/Fonts/Pokemon\ Solid.ttf);
+    
+}
+ 
+#box-container{
+    display:flex ;
+    justify-content: center;
+    height: 15%;
+    width:100%;
+}
+
+#box-container #check-boxes{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1%;
+    width: 99%;
+    flex-wrap: wrap;
+    height: 50%;
+}
+
+#check-boxes .poke-box-container{
+    display: flex;
+    flex-basis: 10%;
+    margin:0.1%;
+    margin-top:0%;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: lightblue;
+    height: 40%;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 2px 1px 10px 2px black;
+}
+
+#check-boxes .poke-box-container .poke-box{
+    display: flex;
+    width: 20%;
+}
+
+#check-boxes .poke-box-container .poke-label{
+    display: flex;
+    margin-top: -10%;
+    font-family: "pokemon-solid";
+    color: gold;
+    -webkit-text-stroke: 1px black;
+}

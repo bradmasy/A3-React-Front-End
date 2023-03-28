@@ -26,9 +26,15 @@ let refreshTokens = [];
 
 
 const parseHeader = (headerString) => {
-
-    const splitHeader = headerString.split(" ");
     let tokens = [];
+
+    console.log(headerString);
+    if (headerString === null || headerString === undefined || headerString === " ") {
+        tokens.push(null);
+        tokens.push(null);
+        return tokens;
+    }
+    const splitHeader = headerString.split(" ");
 
     tokens.push(splitHeader[1]);
     tokens.push(splitHeader[3]);
@@ -38,6 +44,7 @@ const parseHeader = (headerString) => {
 const verifyToken = async (req, res, next) => {
 
     let header = req.header("authorization");
+    console.log("HEADER: " + header);
     console.log(header);
     let authorizationTokens = parseHeader(header);
 
@@ -67,7 +74,7 @@ const verifyToken = async (req, res, next) => {
         next();
 
     } catch (err) {
-   //     console.log(err);
+        //     console.log(err);
         if (err.name === "TokenExpiredError") return res.status(403).json({ "status": 403, "error": err.message });
         if (err.name === "JsonWebTokenError") return res.status(407).json({ "status": 407, "error": err.message });
 
@@ -294,7 +301,7 @@ app.post("/api/v1/login", (req, res) => {
                     let authorization = `Bearer ${accessToken} Refresh ${refreshToken}`;
 
                     res.header("authorization", authorization);
-          
+
                     res.status(200).json({ "Access": accessToken, "Refresh": refreshToken, "authorization": authorization });
 
                 } else {
@@ -338,7 +345,43 @@ app.get("/api/v1/pokemons/", verifyToken, (req, res) => {
 
 })
 
-// Route # 2
+app.get("/api/v1/pokemon-img", verifyToken, (req, res) => {
+
+    let imagePaths = [];
+
+    const getImage = async (imageId) => {
+        let IMAGE_URL = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/thumbnails/${imageId}.png`;
+
+        if (imageId < 10) {
+            IMAGE_URL = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/thumbnails/00${imageId}.png`;
+        }
+        else if (imageId < 100) {
+            IMAGE_URL = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/thumbnails/0${imageId}.png`;
+        }
+
+        return IMAGE_URL;
+    }
+
+    Pokemon.find({}, async (err, pokemon) => {
+        //console.log("pokemon = " + pokemon)
+        if (err) {
+            res.status(400).json("error getting pokemon");
+        }
+        else if (!pokemon) {
+            res.status(404).json("No pokemon found");
+        } else {
+            for (let i = 0; i < pokemon.length; i++) {
+                let imgUrl = await getImage(i);
+              //  console.log(imgUrl);
+                imagePaths.push(imgUrl);
+            }
+            res.status(200).json({"image-paths":imagePaths});
+        }
+    })
+
+
+
+})
 
 
 app.post("/api/v1/pokemon", verifyToken, (req, res) => {
@@ -414,14 +457,14 @@ app.put('/api/v1/pokemon/:id', verifyToken, authorizeAdmin, async (req, res) => 
 /**
  * Illegal Routes
  */
-app.get("/api/v1/*", (req,res,next) => {
+app.get("/api/v1/*", (req, res, next) => {
 
     try {
         throw new IllegalRouteException("Illegal Router. Try again.")
     } catch (err) {
         console.log(err);
         //next(err)
-        res.status(err.errorCode).json({"status":err.errorCode,"message":err.message});
+        res.status(err.errorCode).json({ "status": err.errorCode, "message": err.message });
     }
 })
 

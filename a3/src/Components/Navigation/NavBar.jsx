@@ -18,16 +18,16 @@ const NavBar = () => {
                 </div>
             </div>
             <div id="bottom-bar">
-                <div class="link">
+                <div className="link">
                     Type
                 </div>
-                <div class="link">
+                <div className="link">
                     Admin
                 </div>
-                <div class="link">
+                <div className="link">
                     History
                 </div>
-                <div class="link">
+                <div className="link">
                     Pokemon
                 </div>
             </div>
