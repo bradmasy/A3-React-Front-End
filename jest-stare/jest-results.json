@@ -1,0 +1,569 @@
+{
+  "numFailedTestSuites": 1,
+  "numFailedTests": 1,
+  "numPassedTestSuites": 0,
+  "numPassedTests": 32,
+  "numPendingTestSuites": 0,
+  "numPendingTests": 0,
+  "numRuntimeErrorTestSuites": 0,
+  "numTodoTests": 0,
+  "numTotalTestSuites": 1,
+  "numTotalTests": 33,
+  "openHandles": [],
+  "snapshot": {
+    "added": 0,
+    "didUpdate": false,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0
+  },
+  "startTime": 1679775464409,
+  "success": false,
+  "testResults": [
+    {
+      "leaks": false,
+      "numFailingTests": 1,
+      "numPassingTests": 32,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1679775484407,
+        "runtime": 19827,
+        "slow": true,
+        "start": 1679775464580
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testFilePath": "C:\\Users\\bradl\\Desktop\\BCIT WINTER-SPRING 2023\\Internet-Software-Architecture-4537\\Assignment-2\\assignment2-jwt-bradmasy\\tests\\app.test.js",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "T1: Register User Test"
+          ],
+          "duration": 479,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T1: Register User Test should register a user",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "should register a user"
+        },
+        {
+          "ancestorTitles": [
+            "T2: Returns Token on Valid Login Credentials"
+          ],
+          "duration": 172,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T2: Returns Token on Valid Login Credentials Login and return tokens in headers",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Login and return tokens in headers"
+        },
+        {
+          "ancestorTitles": [
+            "T3: Throw PokemonAuthError for Invalid Login Credentials"
+          ],
+          "duration": 75,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T3: Throw PokemonAuthError for Invalid Login Credentials Invalid Login throws Error",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Invalid Login throws Error"
+        },
+        {
+          "ancestorTitles": [
+            "T4: Test endpoint token refresh"
+          ],
+          "duration": 164,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T4: Test endpoint token refresh Login and return tokens in headers",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Login and return tokens in headers"
+        },
+        {
+          "ancestorTitles": [
+            "T4: Test endpoint token refresh"
+          ],
+          "duration": 54,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T4: Test endpoint token refresh Generates token on endpoint",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Generates token on endpoint"
+        },
+        {
+          "ancestorTitles": [
+            "T5: Test Invalid Refresh Token"
+          ],
+          "duration": 2087,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T5: Test Invalid Refresh Token Making Invalid Request",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Making Invalid Request"
+        },
+        {
+          "ancestorTitles": [
+            "T6: Test Refresh Token is Added to Header"
+          ],
+          "duration": 126,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T6: Test Refresh Token is Added to Header Logging in",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Logging in"
+        },
+        {
+          "ancestorTitles": [
+            "T6: Test Refresh Token is Added to Header"
+          ],
+          "duration": 12,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T6: Test Refresh Token is Added to Header Logging Out",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Logging Out"
+        },
+        {
+          "ancestorTitles": [
+            "T7: Test Access Token can decode user data"
+          ],
+          "duration": 113,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T7: Test Access Token can decode user data Logging in",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 0,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Logging in"
+        },
+        {
+          "ancestorTitles": [
+            "T7: Test Access Token can decode user data"
+          ],
+          "duration": 2,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T7: Test Access Token can decode user data Decoding token",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Decoding token"
+        },
+        {
+          "ancestorTitles": [
+            "T8: Register, Login and make a Request"
+          ],
+          "duration": 139,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T8: Register, Login and make a Request Register",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Register"
+        },
+        {
+          "ancestorTitles": [
+            "T8: Register, Login and make a Request"
+          ],
+          "duration": 124,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T8: Register, Login and make a Request Login",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Login"
+        },
+        {
+          "ancestorTitles": [
+            "T8: Register, Login and make a Request"
+          ],
+          "duration": 2909,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T8: Register, Login and make a Request Request",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Request"
+        },
+        {
+          "ancestorTitles": [
+            "T9: Restrain Unauthenticated User"
+          ],
+          "duration": 76,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T9: Restrain Unauthenticated User Make request without tokens",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Make request without tokens"
+        },
+        {
+          "ancestorTitles": [
+            "T10: Expired JWT Test"
+          ],
+          "duration": 81,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T10: Expired JWT Test Try Invalid Token",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Try Invalid Token"
+        },
+        {
+          "ancestorTitles": [
+            "T11: Test Request with expired JWT access Test"
+          ],
+          "duration": 4013,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T11: Test Request with expired JWT access Test wait",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 0,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "wait"
+        },
+        {
+          "ancestorTitles": [
+            "T11: Test Request with expired JWT access Test"
+          ],
+          "duration": 45,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T11: Test Request with expired JWT access Test Try Invalid Token",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Try Invalid Token"
+        },
+        {
+          "ancestorTitles": [
+            "T12: Valid Refresh JWT Test"
+          ],
+          "duration": 3160,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T12: Valid Refresh JWT Test Try valid Token",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Try valid Token"
+        },
+        {
+          "ancestorTitles": [
+            "T13: Test that non-admin user cannot access admin protected routes"
+          ],
+          "duration": 333,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T13: Test that non-admin user cannot access admin protected routes login",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "login"
+        },
+        {
+          "ancestorTitles": [
+            "T13: Test that non-admin user cannot access admin protected routes"
+          ],
+          "duration": 93,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "T13: Test that non-admin user cannot access admin protected routes Fail admin route",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Fail admin route"
+        },
+        {
+          "ancestorTitles": [
+            "Test 14: Test that after logging out, a user cannot access protected routes until the user re-login"
+          ],
+          "duration": 185,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Test 14: Test that after logging out, a user cannot access protected routes until the user re-login login",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "login"
+        },
+        {
+          "ancestorTitles": [
+            "Test 14: Test that after logging out, a user cannot access protected routes until the user re-login"
+          ],
+          "duration": 17,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Test 14: Test that after logging out, a user cannot access protected routes until the user re-login logout",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "logout"
+        },
+        {
+          "ancestorTitles": [
+            "Test 14: Test that after logging out, a user cannot access protected routes until the user re-login"
+          ],
+          "duration": 29,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Test 14: Test that after logging out, a user cannot access protected routes until the user re-login access protected route",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "access protected route"
+        },
+        {
+          "ancestorTitles": [
+            "Test 14: Test that after logging out, a user cannot access protected routes until the user re-login"
+          ],
+          "duration": 137,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Test 14: Test that after logging out, a user cannot access protected routes until the user re-login second login",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "second login"
+        },
+        {
+          "ancestorTitles": [
+            "Test 14: Test that after logging out, a user cannot access protected routes until the user re-login"
+          ],
+          "duration": 149,
+          "failureDetails": [
+            {
+              "matcherResult": {
+                "actual": 400,
+                "expected": 201,
+                "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m201\u001b[39m\nReceived: \u001b[31m400\u001b[39m",
+                "name": "toBe",
+                "pass": false
+              }
+            }
+          ],
+          "failureMessages": [
+            "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m201\u001b[39m\nReceived: \u001b[31m400\u001b[39m\n    at Object.toBe (C:\\Users\\bradl\\Desktop\\BCIT WINTER-SPRING 2023\\Internet-Software-Architecture-4537\\Assignment-2\\assignment2-jwt-bradmasy\\tests\\app.test.js:523:24)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)"
+          ],
+          "fullName": "Test 14: Test that after logging out, a user cannot access protected routes until the user re-login second access protected route",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 0,
+          "retryReasons": [],
+          "status": "failed",
+          "title": "second access protected route"
+        },
+        {
+          "ancestorTitles": [
+            "Test 15 Edge 1: Invalid payloads for register and login endpoints"
+          ],
+          "duration": 27,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Test 15 Edge 1: Invalid payloads for register and login endpoints invalid login payload",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "invalid login payload"
+        },
+        {
+          "ancestorTitles": [
+            "Test 15 Edge 1: Invalid payloads for register and login endpoints"
+          ],
+          "duration": 21,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Test 15 Edge 1: Invalid payloads for register and login endpoints invalid register payload",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "invalid register payload"
+        },
+        {
+          "ancestorTitles": [
+            "Test 15 Edge 2: Invalid token secrets or expiration times"
+          ],
+          "duration": 36,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Test 15 Edge 2: Invalid token secrets or expiration times Invalid Secret",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Invalid Secret"
+        },
+        {
+          "ancestorTitles": [
+            "Test 15 Edge 2: Invalid token secrets or expiration times"
+          ],
+          "duration": 2042,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Test 15 Edge 2: Invalid token secrets or expiration times Expiration time",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Expiration time"
+        },
+        {
+          "ancestorTitles": [
+            "Test 16 Edge 3: Duplicate or missing documents in the database"
+          ],
+          "duration": 66,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Test 16 Edge 3: Duplicate or missing documents in the database duplicating already existing data",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 2,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "duplicating already existing data"
+        },
+        {
+          "ancestorTitles": [
+            "Test 17 Edge 4: Unhandled database errors"
+          ],
+          "duration": 20,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Test 17 Edge 4: Unhandled database errors disconnect",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 0,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "disconnect"
+        },
+        {
+          "ancestorTitles": [
+            "Test 17 Edge 4: Unhandled database errors"
+          ],
+          "duration": 31,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Test 17 Edge 4: Unhandled database errors Database errors",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "Database errors"
+        },
+        {
+          "ancestorTitles": [
+            "Test 18 Edge 5: Invalid HTTP requests or responses"
+          ],
+          "duration": 40,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "Test 18 Edge 5: Invalid HTTP requests or responses invalid request endpoint",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "invalid request endpoint"
+        }
+      ],
+      "failureMessage": "\u001b[1m\u001b[31m  \u001b[1m● \u001b[22m\u001b[1mTest 14: Test that after logging out, a user cannot access protected routes until the user re-login › second access protected route\u001b[39m\u001b[22m\n\n    \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\n    Expected: \u001b[32m201\u001b[39m\n    Received: \u001b[31m400\u001b[39m\n\u001b[2m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 521 |\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 522 |\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[2m\u001b[39m\u001b[90m 523 |\u001b[39m     expect(res\u001b[33m.\u001b[39mstatus)\u001b[33m.\u001b[39mtoBe(\u001b[35m201\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m     |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[2m\u001b[39m\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 524 |\u001b[39m     expect(res\u001b[33m.\u001b[39mbody\u001b[33m.\u001b[39mmsg)\u001b[33m.\u001b[39mtoBe(\u001b[32m\"Added Successfully\"\u001b[39m)\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 525 |\u001b[39m   })\u001b[0m\u001b[22m\n\u001b[2m    \u001b[0m \u001b[90m 526 |\u001b[39m })\u001b[0m\u001b[22m\n\u001b[2m\u001b[22m\n\u001b[2m      \u001b[2mat Object.toBe (\u001b[22m\u001b[2m\u001b[0m\u001b[36mtests/app.test.js\u001b[39m\u001b[0m\u001b[2m:523:24)\u001b[22m\u001b[2m\u001b[22m\n"
+    }
+  ],
+  "wasInterrupted": false
+}

@@ -1,0 +1,190 @@
+###
+POST http://localhost:5000/api/v1/register
+Content-Type: application/json
+
+{
+  "username": "testadmin",
+  "password": "test",
+  "fname":"brad",
+  "lname":"masciotra"
+}
+
+
+###
+POST http://localhost:5000/api/v1/login
+Content-Type: application/json
+
+{
+  "username": "testadmin",
+  "password": "test"
+}
+
+
+###
+POST http://localhost:5000/api/v1/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "testpassword"
+}
+
+###
+
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+###
+@ACCESS = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaWF0IjoxNjc5NzA0MzIxLCJleHAiOjE2Nzk3OTA3MjF9.9yzAPsUzA_Vwa4ADT4emxoi3bXCULnZQDbOwriuaeEY
+@REFRESH = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaWF0IjoxNjc5NzA0MzIxfQ.K93CKfYqKtDjoT3jU3aNLYmP5VMMGPGIZ6rbF-jdUTE
+@AUTHORIZATION = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImFkbWluIjp0cnVlLCJpYXQiOjE2Nzk3MjIwMzgsImV4cCI6MTY3OTgwODQzOH0.cVRMjt8FttZfesINNgS7NiE-7hgUFyKBVh2JraboCWI Refresh eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhZG1pbiIsImFkbWluIjp0cnVlLCJpYXQiOjE2Nzk3MjIwMzh9.Cp7OXBjqFAt3nZ3IvPBBURSOvaxkNBAsnVzw-Xrvawg
+
+GET http://localhost:5000/api/v1/pokemons
+Content-Type: application/json 
+authorization: {{AUTHORIZATION}}
+auth-token-access: {{ACCESS}}
+auth-token-refresh: {{REFRESH}}
+
+###
+
+GET http://localhost:5000/api/v1/requestNewAccessToken
+Content-Type: application/json 
+Authorization: {{AUTHORIZATION}}
+
+{
+  "_username":"brad"
+}
+
+###
+GET http://localhost:5000/api/v1/logout
+Content-Type: application/json 
+
+###
+GET http://localhost:5000/api/v1/pokemons
+Content-Type: application/json 
+auth-token-access: null
+auth-token-refresh: null
+
+###
+GET http://localhost:5000/api/v1/pokemons
+Content-Type: application/json 
+auth-token-access: {{ACCESS}}
+auth-token-refresh: {{{{REFRESH}}}}
+
+
+
+
+
+
+
+
+
+###
+GET http://localhost:5000/api/v1/pokemons?count=2&limit=10
+Content-Type: application/json 
+authorization: {{AUTHORIZATION}}
+auth-token-access: {{ACCESS}}
+auth-token-refresh: {{REFRESH}}
+
+
+
+
+###
+GET http://localhost:5000/api/v1/invalid
+Content-Type: application/json 
+authorization: {{AUTHORIZATION}}
+
+
+
+
+
+
+###
+POST http://localhost:6000/api/v1/pokemon?appid={{ADMIN_TOKEN}}
+Content-Type: application/json
+
+{
+    "name": {
+      "english": "test",
+      "japanese": "test",
+      "chinese": "test",
+      "french": "test"
+    },
+    "base": {
+      "HP": 50,
+      "Attack": 20,
+      "Defense": 55,
+      "Speed": 30,
+      "Speed Attack": 25,
+      "Speed Defense": 25
+    },
+    "id": 1000,
+    "type": [
+      "Bug"
+    ],
+    "__v": 0
+  }
+
+###
+POST http://localhost:5000/api/v1/pokemon
+Content-Type: application/json 
+auth-token-access: {{ACCESS}}
+auth-token-refresh: {{REFRESH}}
+
+{
+    "id": 1005,
+    "name": {
+      "english": "test",
+      "japanese": "test",
+      "chinese": "test",
+      "french": "test"
+    },
+    "base": {
+      "HP": 50,
+      "Attack": 20,
+      "Defense": 55,
+      "Speed": 30,
+      "Speed Attack": 25,
+      "Speed Defense": 25
+    },
+    "type": [
+      "Bug"
+    ]
+  }
+
+
+
+
+
+
+### 
+GET http://localhost:5000/logout?appid={{NON_ADMIN_TOKEN}}
+
+
+
+
+
+
+### 
+
+DELETE  http://localhost:6000/api/v1/pokemon?id=1000&appid={{ADMIN_TOKEN}}
+Content-Type: application/json
+
+{
+  "id": 1000
+}
+
+
+###
+POST http://localhost:5000/api/v1/login
+Content-Type: application/json
+
+{
+  "invalid": "admin",
+  "invalid2": "admin"
+}
