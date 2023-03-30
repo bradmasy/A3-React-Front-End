@@ -5,28 +5,11 @@ import "./ImageContainer.css"
 
 const ImageContainer = ({ selection }) => {
 
-
-    const POKEMON_URL = 'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json';
-
-    const getImage = async (imageId) => {
-        let IMAGE_URL = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/thumbnails/${imageId}.png`;
-
-        if (imageId < 10) {
-            IMAGE_URL = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/thumbnails/00${imageId}.png`;
-        }
-        else if (imageId < 100) {
-            IMAGE_URL = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/thumbnails/0${imageId}.png`;
-        }
-
-        return IMAGE_URL;
-
-    }
-
-    let baseImgs = [];
     const [imgs, setImgs] = useState([]);
     const [accessToken, setAccessToken] = useState("");
     const [refreshToken, setRefreshToken] = useState("");
 
+    let images;
     const login = async () => {
         const MY_API = "http://localhost:5000/api/v1/login";
         const userData = {
@@ -44,7 +27,8 @@ const ImageContainer = ({ selection }) => {
         const refresh = tokens[3];
         setAccessToken(access);
         setRefreshToken(refresh);
-
+        console.log(access);
+        console.log(refresh);
     };
 
     const fetchImgs = async () => {
@@ -55,34 +39,88 @@ const ImageContainer = ({ selection }) => {
             "Content-Type": "application/json"
         }
         const response = await axios.get(API_CALL, { headers });
+        console.log(response);
         const imgPaths = response.data["image-paths"];
-        //console.log(imgPaths)
+        console.log(imgPaths)
         setImgs(imgPaths);
     }
 
 
     useEffect(() => {
-
         const loginAndGetImages = async () => {
             await login();
-            await fetchImgs();
-     
+            //await fetchImgs(); 
         };
 
         loginAndGetImages();
     }, [])
 
-    return (
-        <div id="imgs-container">
+    useEffect(() => {
+        const getImgUrls = async () => {
+            await fetchImgs();
 
-            {imgs.map( (url, i) =>{
-                console.log("URL:" + url);
-                <div className="poke-img-container">
-                    <img src={url}>
+        }
+        getImgUrls();
+    }, [accessToken]) // when access token gets updated this will get called.
+
+
+    const createImgDivs = async () => {
+        let divs = [];
+        for (let i = 0; i < imgs.length; i++) {
+            let div =
+                <div key={imgs[i]}>
+                    <label>{i}</label>
+                    <img src={imgs[i]}>
                     </img>
-                </div>
-            })}
+                </div>;
+            divs.push(div);
+            console.log(div);
+        }
+        return divs;
+    }
+
+    // useEffect(() => {
+    //     const renderImgContainer = async () => {
+    //         images = await createImgDivs();
+
+    //     }
+
+    //     renderImgContainer();
+    // }, [imgs]);
+
+    // login();
+    // fetchImgs();
+
+    // {imgs.map( (url, i) =>{
+    //     //  console.log("URL:" + url);
+    //       <div className="poke-img-container">
+    //           <img src={url}>
+    //           </img>
+    //       </div>
+    //   })}
+
+    return (
+
+
+
+        <div id="imgs-container">
+            {
+                imgs.map((img, index) => {
+                    return (
+                        <div key={img}>
+                            <label>{}</label>
+                            <img src={img}>
+                            </img>
+                        </div>
+                    )
+
+                })
+            }
+
+
         </div>)
+
+
 }
 
 
