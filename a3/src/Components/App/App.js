@@ -4,6 +4,8 @@ import NavBar from "../Navigation/NavBar";
 import CheckBoxes from '../Body/CheckBoxes';
 import { useState } from 'react';
 import ImageContainer from '../Body/ImageContainer';
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Login from "./Pages/Login/Login";
 
 function App() {
 
@@ -15,9 +17,15 @@ function App() {
 
   return (
     <div id="body">
-      <NavBar />
+
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login/>}/>
+        </Routes>
+      </Router>
+      {/* <NavBar />
       <CheckBoxes selection={selection} setSelection={setSelection} />
-      <ImageContainer selection={selection}/>
+      <ImageContainer selection={selection}/> */}
     </div>
 
   );
