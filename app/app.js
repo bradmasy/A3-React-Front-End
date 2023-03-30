@@ -370,9 +370,9 @@ app.get("/api/v1/pokemon-img", verifyToken, (req, res) => {
         else if (!pokemon) {
             res.status(404).json("No pokemon found");
         } else {
-            for (let i = 0; i < pokemon.length; i++) {
+            for (let i = 1; i < 809; i++) {
                 let imgUrl = await getImage(i);
-              //  console.log(imgUrl);
+                console.log(imgUrl);
                 imagePaths.push(imgUrl);
             }
             res.status(200).json({"image-paths":imagePaths});
