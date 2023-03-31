@@ -326,8 +326,11 @@ app.get("/api/v1/pokemons/", verifyToken, (req, res) => {
     let queryCount = req.query.count;
     let queryAfter = req.query.after;
 
+    console.log(queryAfter);
+    console.log(queryCount)
+
     Pokemon.find({}, (err, pokemon) => {
-        console.log("pokemon = " + pokemon)
+        console.log(pokemon);
         if (err) {
             res.status(400).json("error getting pokemon");
         }

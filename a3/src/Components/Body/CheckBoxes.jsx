@@ -27,15 +27,21 @@ const CheckBoxes = ({ selection, setSelection }) => {
 
         for (let i = 0; i < types.length; i++) {
             let checkBox = <div className="poke-box-container" key={types[i].english}>
-                <input type="checkbox" onChange={async (e) => {
-                    if (e.target.checked) {
-                        await setSelection([...selection, types[i].english]); 
-                    } else {
-                        await setSelection(selection.filter(type => type !== types[i].english));
+                <div className="checkbox-container">
+                    <input type="checkbox" onChange={async (e) => {
+                        if (e.target.checked) {
+                            await setSelection([...selection, types[i].english]);
+                        } else {
+                            await setSelection(selection.filter(type => type !== types[i].english));
+                        }
                     }
-                }
-                } className="poke-box" id={types[i].english} value={types[i].english} name={types[i].english} />
-                <label className="poke-label">{types[i].english}</label>
+                    } className="poke-box" id={types[i].english} value={types[i].english} name={types[i].english} />
+                </div>
+
+                <div className="label-position">
+                    <label className="poke-label">{types[i].english}</label>
+
+                </div>
             </div>
 
             checkBoxArr.push(checkBox);

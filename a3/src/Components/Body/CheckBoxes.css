@@ -22,6 +22,7 @@
 
 #check-boxes .poke-box-container{
     display: flex;
+    justify-content: center;
     flex-basis: 10%;
     margin:0.1%;
     margin-top:0%;
@@ -33,15 +34,47 @@
     box-shadow: 2px 1px 10px 2px black;
 }
 
-#check-boxes .poke-box-container .poke-box{
+#check-boxes .poke-box-container .checkbox-container{
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border:solid black 1px;
     width: 20%;
+}
+#check-boxes .poke-box-container .checkbox-container .poke-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border: solid 1px black;
+    width: 80%;
+}
+#check-boxes .poke-box-container .label-position .poke-label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#check-boxes #checkbox-container .label-position .poke-label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+}
+
+
+#check-boxes .poke-box-container .label-position .poke-label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    border: solid black 1px;
 }
 
 #check-boxes .poke-box-container .poke-label{
     display: flex;
-    margin-top: -10%;
-    font-family: "pokemon-solid";
+    font-family: "gameboy";
     color: gold;
     -webkit-text-stroke: 1px black;
+    font-size:.75em
 }
