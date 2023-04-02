@@ -77,15 +77,20 @@ const verifyToken = async (req, res, next) => {
 
 
 const authorizeAdmin = async (req, res, next) => {
+    console.log("Trying to authorize")
 
     let header = req.header("authorization");
+    console.log(header);
+    console.log(header[0]);
+
     let authorizationTokens = parseHeader(header);
 
     const access_authHeader = authorizationTokens[0]; // req.header("auth-token-access");
     const refresh_authHeader = authorizationTokens[1]; //req.header("auth-token-refresh");
 
     const token = JWT.verify(access_authHeader.trim(), process.env.ACCESS_TOKEN_SECRET);
-
+    console.log(token);
+    req.token = token;
     try {
 
         if (!token.admin) throw new AdminAuthError("Invalid Administrator. No Access Permitted.")
@@ -165,15 +170,14 @@ app.post("/api/v1/register", async (req, res) => {
 
         let salt = bcrypt.genSaltSync(10);
         const hashed = await bcrypt.hash(password, salt);
-        console.log(hashed);
-        console.log(salt);
+        
         let userData = {
             username: username,
             admin: admin,
             fname: first,
             lname: last,
             password: hashed,
-            token: null
+            dateSignedUp: new Date()
         }
 
         const token = JWT.sign({
@@ -256,6 +260,29 @@ app.get("/api/v1/login", (req, res) => {
             <button type="submit">Submit</button>
     </form>`)
     console.log("Login route");
+})
+
+
+app.get("/api/v1/verify-admin",authorizeAdmin, (req,res) => {
+    console.log("VERIFYING")
+
+    if(!req.token){
+        res.status(400).json("illegal token");
+
+    }
+    res.status(200).json(req.token);
+})
+
+app.get("/api/v1/db-info", authorizeAdmin, (req,res)=>{
+    
+    User.find({}, (err,users)=>{
+        if(err){
+            console.log(err)
+        } else {
+            console.log("USERS: " + users);
+            res.json(users);
+        }
+    })
 })
 
 app.post("/api/v1/login", (req, res) => {

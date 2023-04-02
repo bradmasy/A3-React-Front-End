@@ -3,23 +3,24 @@ import React, { Component, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useRef } from 'react';
 import Chart from 'chart.js/auto'
+import { useState } from 'react';
 
-
-const DashboardChart = () => {
+const DashboardChart = ({graphData}) => {
 
 
     const chartRef = useRef(null);
 
+    console.log(graphData)
 
-    const dataRef = [
-        { year: 2010, count: 10 },
-        { year: 2011, count: 20 },
-        { year: 2012, count: 15 },
-        { year: 2013, count: 25 },
-        { year: 2014, count: 22 },
-        { year: 2015, count: 30 },
-        { year: 2016, count: 28 },
-    ];
+    let dataRef = [];
+    graphData.forEach( e => {
+        let dataObject = {
+            date: e.dateSignedUp
+        }
+
+        dataRef.push(dataObject);
+    })
+
 
     const options = {
         responsive: true,
@@ -38,6 +39,7 @@ const DashboardChart = () => {
               chartContainer.chart = new Chart(chartRef.current,
                 {
                     type: 'bar',
+                    title:"hello",
                     options: {
                         animation: false,
                         plugins: {
@@ -50,24 +52,23 @@ const DashboardChart = () => {
                         }
                     },
                     data: {
-                        labels: dataRef.map(row => row.year),
+                        labels: dataRef.map(row => row.date),
                         datasets: [
                             {
                                 label: 'Acquisitions by year',
-                                data: dataRef.map(row => row.count)
+                                data: dataRef.map((row ,i) => i)
                             }
                         ]
                     }
                 })
         }
         chart();
-    }, [])
+    }, [graphData])
 
 
     return (
         <div id="dashboard-chart-container">
             <div>
-                <h2>Bar Example</h2>
                 <canvas ref={chartRef} id="chart-rendering">
                 </canvas >
             </div>

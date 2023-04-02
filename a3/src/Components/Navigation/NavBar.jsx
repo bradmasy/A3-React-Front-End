@@ -119,7 +119,7 @@ const NavBar = () => {
                                     </img>
                                 </div>
                                 <div className="link-title">
-                                    Home
+                                    <Link to="/reports">Reports</Link>
                                 </div>
                             </div>
                         </div>
