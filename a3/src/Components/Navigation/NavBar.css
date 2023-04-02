@@ -20,13 +20,11 @@
 }
 
 
-
-
 #nav-bar-styles {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 6%;
+    height: 10%;
     width: 100%;
     background-color: lightblue;
 }
@@ -53,7 +51,7 @@
     height: 100%;
     width: 20%;
     font-family: "gameboy";
-    font-size: 2em;
+    font-size: 1.5em;
     color: gold;
     -webkit-text-stroke: 1px black;
     transition: font-size 0.2s ease-in-out;

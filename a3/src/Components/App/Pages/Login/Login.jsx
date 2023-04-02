@@ -4,15 +4,13 @@ import { useState } from "react";
 import LoginForm from "./LoginForm/LoginForm"
 import { ReactDOM } from "react";
 import NavBar from "../../../Navigation/NavBar";
-const Login = ({user,setUser}) => {
-
-    const [loginSuccessful, setLoginSuccess] = useState([]);
+const Login = ({setHeaders,user,setUser}) => {
 
     return (
         
         <div id="login">
             <NavBar/>
-            <LoginForm loginSuccessful={loginSuccessful} setLoginSuccess={setLoginSuccess}/>
+            <LoginForm setHeader={setHeaders}/>
         </div>
 
       

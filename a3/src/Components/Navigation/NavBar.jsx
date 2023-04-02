@@ -3,6 +3,7 @@ import "./NavBar.css";
 import pokemonLogo from '../../Assets/Images/pokemon-logo.png';
 import pokeBall from "../../Assets/Images/poke-ball.png";
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
 
@@ -90,7 +91,17 @@ const NavBar = () => {
                                     </img>
                                 </div>
                                 <div className="link-title">
-                                    Home
+                                    <Link to="/"> Home</Link>
+                                </div>
+
+                            </div>
+                            <div className="link-container">
+                                <div className="poke-ball-container">
+                                    <img src={pokeBall}>
+                                    </img>
+                                </div>
+                                <div className="link-title">
+                                <Link to="/"> Login</Link>
                                 </div>
                             </div>
                             <div className="link-container">
@@ -99,16 +110,7 @@ const NavBar = () => {
                                     </img>
                                 </div>
                                 <div className="link-title">
-                                    Login
-                                </div>
-                            </div>
-                            <div className="link-container">
-                                <div className="poke-ball-container">
-                                    <img src={pokeBall}>
-                                    </img>
-                                </div>
-                                <div className="link-title">
-                                    Home
+                                    <Link to="/dashboard"> Dashboard</Link>
                                 </div>
                             </div>
                             <div className="link-container">

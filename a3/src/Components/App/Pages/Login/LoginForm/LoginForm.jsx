@@ -5,7 +5,7 @@ import { useRef } from "react";
 import {useNavigate} from "react-router-dom";
 
 
-const LoginForm = ({ loginSuccessful, setLoginSuccess }) => {
+const LoginForm = ({setHeader}) => {
     const nav = useNavigate();
 
     const passwordInput = useRef(null);
@@ -28,14 +28,19 @@ const LoginForm = ({ loginSuccessful, setLoginSuccess }) => {
 
         console.log(loginResponse)
 
-        const tokens  = loginResponse.data.authorization.split(" ");
-        const access  = tokens[1];
-        const refresh = tokens[3];
+        const tokenSplit  = loginResponse.data.authorization.split(" ");
+        const access  = tokenSplit[1];
+        const refresh = tokenSplit[3];
 
-        nav("/home");
         
-        console.log(access);
-        console.log(refresh);
+        console.log(`Bearer ${access} Refresh ${refresh}`)
+
+        const authHeader = {
+            authorization: `Bearer ${access} Refresh ${refresh}`
+        }
+        console.log(authHeader);
+        await setHeader(authHeader);
+        nav("/home", { headers: authHeader } );
     };
 
     return (

@@ -20,7 +20,6 @@ app.use(cors({
 }));
 
 app.use(cors());
-
 let authTokens = [];
 let refreshTokens = [];
 
@@ -42,18 +41,12 @@ const parseHeader = (headerString) => {
 }
 
 const verifyToken = async (req, res, next) => {
-
+   // console.log(req);
     let header = req.header("authorization");
-    console.log("HEADER: " + header);
-    console.log(header);
     let authorizationTokens = parseHeader(header);
-
+    console.log("header: " + header);
     const access_authHeader = authorizationTokens[0]; //req.header("auth-token-access");
     const refresh_authHeader = authorizationTokens[1];//req.header("auth-token-refresh");
-
-    console.log(access_authHeader);
-    console.log(refresh_authHeader);
-
 
     try {
 
@@ -74,12 +67,11 @@ const verifyToken = async (req, res, next) => {
         next();
 
     } catch (err) {
-        //     console.log(err);
+
         if (err.name === "TokenExpiredError") return res.status(403).json({ "status": 403, "error": err.message });
         if (err.name === "JsonWebTokenError") return res.status(407).json({ "status": 407, "error": err.message });
 
         return res.status(err.errorCode).json({ "status": err.errorCode, "error": err.message });
-
     }
 }
 
@@ -288,9 +280,10 @@ app.post("/api/v1/login", (req, res) => {
                 if (isPasswordMatch) {
                     let accessToken;
                     let refreshToken;
-                    let options = { expiresIn: "24hr" };
+                    let options = { expiresIn: "48hr" };
 
                     if (data.admin) {
+                       
                         accessToken = JWT.sign({ username: _username, admin: true }, process.env.ACCESS_TOKEN_SECRET, options);
                         refreshToken = JWT.sign({ username: _username, admin: true }, process.env.REFRESH_TOKEN_SECRET);
                     } else {
@@ -330,7 +323,7 @@ app.get("/api/v1/pokemons/", verifyToken, (req, res) => {
     console.log(queryCount)
 
     Pokemon.find({}, (err, pokemon) => {
-        console.log(pokemon);
+      //  console.log(pokemon);
         if (err) {
             res.status(400).json("error getting pokemon");
         }

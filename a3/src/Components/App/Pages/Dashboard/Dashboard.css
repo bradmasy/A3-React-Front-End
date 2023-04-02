@@ -1,0 +1,33 @@
+#dashboard-container{
+    display:flex;
+    height: 100%;
+    flex-direction: column;
+    border:solid black 2px;
+}
+
+#dashboard-container #chart-container{
+    display: flex;
+    height: 90%;
+    flex-direction: column;
+    justify-content: center;
+    border:solid 2px black;
+    width:100%
+}
+
+#dashboard-container #chart-container #chart-container-row{
+    display: flex;
+    height: 50%;
+    flex-direction: row;
+    justify-content: center;
+    border:solid 2px black;
+    width:100%
+}
+
+#dashboard-container #chart-container #chart-container-row #chart-container-final{
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    border:solid 2px black;
+    width:40%
+}

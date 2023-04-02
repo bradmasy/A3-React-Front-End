@@ -46,7 +46,7 @@ const CheckBoxes = ({ selection, setSelection }) => {
 
             checkBoxArr.push(checkBox);
         }
-
+        
         return checkBoxArr;
     }
 
