@@ -24,22 +24,25 @@ const ImageContainer = ({ headers, start, end, nImages, selection }) => {
         const imgPaths       = response.data["image-paths"];
         const selectionIDs   = pokemon.map((poke) => poke.id);
         let selectedImgPaths = [];
+        console.log(selectionIDs)
 
-      //  console.log(selectionIDs)
         for (let i = 0; i < imgPaths.length; i++) {
             for (let j = 0; j < selectionIDs.length; j++) {
-                if (imgPaths[i].includes(selectionIDs[j])) {
-                    //        console.log(imgPaths[i]);
-                    //     console.log(selectionIDs[j]);
+
+                const urlParts = imgPaths[i].split("/");
+                const fileNameParts = urlParts[urlParts.length - 1].split(".");
+                const pokemonNumber = parseInt(fileNameParts[0]);
+
+                if (pokemonNumber === selectionIDs[j]) {
                     selectedImgPaths.push(imgPaths[i]);
                     break;
                 }
             }
         }
 
-      //  console.log(selectedImgPaths);
+        
         selectedImgPaths = selectedImgPaths.length < 1 ? imgPaths : selectedImgPaths;
-        selectedImgPaths = selectedImgPaths.slice(start);
+        selectedImgPaths = selectedImgPaths.slice(0);
         let chosenImages = [];
 
         for (let i = 0; i < nImages; i++) {
@@ -63,6 +66,10 @@ const ImageContainer = ({ headers, start, end, nImages, selection }) => {
         const response        = await axios.get(API_CALL, { headers: authHeaders });
         const pokemonInfo     = response.data;
         console.log(pokemonInfo)
+      
+        pokemonInfo.sort((a, b) => a.id - b.id);
+        console.log(pokemonInfo)
+
         const filteredPokemon = selection.length < 1 ? pokemonInfo : pokemonInfo.filter(p => {
             return selection.some(type => p.type.includes(type));
         })
@@ -108,7 +115,7 @@ const ImageContainer = ({ headers, start, end, nImages, selection }) => {
                             return (
                                 <div className="poke-img-container" key={key}>
                                     <div className="name">
-                                        <label>{pokemon[(start + index)].name.english}</label>
+                                        <label>{pokemon[(index)].name.english}</label>
                                     </div>
                                     <div className="poke-img">
                                         <img src={img}>
