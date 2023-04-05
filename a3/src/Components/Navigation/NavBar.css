@@ -106,7 +106,7 @@
     width: 70%;
     height: 100%;
     font-family: "gameboy";
-    font-size: 1.5em;
+    font-size: 1em;
     background: linear-gradient(to right, blue, red);
     -webkit-background-clip: text;
     background-clip: text;

@@ -26,7 +26,6 @@ const ImageContainer = ({ headers, start, end, nImages, selection }) => {
         let selectedImgPaths = [];
         console.log(selectionIDs)
 
-
         const selectionIDSet = new Set(selectionIDs);
 
         for (let i = 0; i < imgPaths.length; i++) {
@@ -39,21 +38,6 @@ const ImageContainer = ({ headers, start, end, nImages, selection }) => {
             }
         }
 
-
-
-        // for (let i = 0; i < imgPaths.length; i++) {
-        //     for (let j = 0; j < selectionIDs.length; j++) {
-
-        //         const urlParts = imgPaths[i].split("/");
-        //         const fileNameParts = urlParts[urlParts.length - 1].split(".");
-        //         const pokemonNumber = parseInt(fileNameParts[0]);
-
-        //         if (pokemonNumber === selectionIDs[j]) {
-        //             selectedImgPaths.push(imgPaths[i]);
-        //             break;
-        //         }
-        //     }
-        // }
 
         selectedImgPaths = selectedImgPaths.length < 1 ? imgPaths.slice(0, nImages) : selectedImgPaths.slice(0, nImages);
 
@@ -77,11 +61,21 @@ const ImageContainer = ({ headers, start, end, nImages, selection }) => {
         pokemonInfo.sort((a, b) => a.id - b.id);
         console.log(pokemonInfo)
 
-        const filteredPokemon = selection.length < 1 ? pokemonInfo : pokemonInfo.filter(p => {
+        let filteredPokemon = selection.length < 1 ? pokemonInfo : pokemonInfo.filter(p => {
             return selection.some(type => p.type.includes(type));
         })
+
         console.log("---------------------filtered----------------------");
         console.log(filteredPokemon);
+
+        if(start > 1 ){
+
+            console.log("start: " + start);
+            console.log("number amount: " + nImages);
+            start = parseInt(nImages) * parseInt(start);
+            console.log("new start: " + start);
+            filteredPokemon = filteredPokemon.slice(start - nImages, start);
+        }
 
         setPokemon(filteredPokemon);
     }
