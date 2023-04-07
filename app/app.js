@@ -93,6 +93,7 @@ const verifyToken = async (req, res, next) => {
         }, (err, result) => {
             if (err) console.log(err);
         })
+        res.token = real_token;
         next();
 
     } catch (err) {
@@ -396,7 +397,7 @@ app.get("/api/v1/db-info/:query", authorizeAdmin, (req, res) => {
                 {
                     $project: {
                         username: 1,
-                        accessedLength: { $size: {$ifNull:["$accessed",[]]} }
+                        accessedLength: { $size: { $ifNull: ["$accessed", []] } }
                     }
                 }
             ]).exec((err, result) => {
@@ -405,25 +406,66 @@ app.get("/api/v1/db-info/:query", authorizeAdmin, (req, res) => {
                 console.log(result);
                 res.json({ data: { queryName: query, users: result } });
             })
+            break;
         case "top-users-for-each-endpoint":
             User.aggregate([
                 { $unwind: "$accessed" },
                 { $group: { _id: "$accessed.route", count: { $sum: 1 } } },
                 { $sort: { count: -1 } },
                 { $group: { _id: "$_id", count: { $first: "$count" } } },
-            ]).exec((err,result)=>{
+            ]).exec((err, result) => {
                 console.log(result);
                 res.json({ data: { queryName: query, users: result } });
             });
-            
+
             break;
         case "400-errors":
-            ErrorLog.find({
-                errorNumber: {$lt: 500}
-            }).sort({date:1})
-            .exec((err,result)=>{
-                res.json({ data: { queryName: query, users: result } });
-            })
+            ErrorLog.aggregate([
+                {
+                    $match: { errorNumber: { $lt: 500 } }
+                },
+                {
+                    $group: {
+                        _id: "$errorNumber",
+                        count: { $sum: 1 }
+                    }
+                }
+            ])
+                .exec((err, result) => {
+                    res.json({ data: { queryName: query, users: result } });
+                })
+            break;
+        case "recent-errors":
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(today.getDate() - 1);
+            console.log(today)
+            today.setHours(0, 0, 0, 0); // midnight
+            console.log(today);
+
+            ErrorLog.aggregate([
+                {
+                    $match: {
+                        date: {
+                            $gte: yesterday,
+                            $lt: today
+                        }
+                    }
+                }, {
+                    $group: {
+                        _id: "$errorNumber",
+                        count: { $sum: 1 }
+                    }
+                }
+            ])
+                .exec((err, result) => {
+                    if (err) console.log(err);
+
+                    console.log(result);
+                    res.json({ data: { queryName: query, period: { start: yesterday, end: today }, users: result } });
+
+                })
+            break;
         default:
             break;
     }
@@ -500,7 +542,7 @@ app.get("/api/v1/pokemons/", verifyToken, (req, res) => {
         } else {
             let pokemonQuery = pokemon.slice(queryAfter, pokemon.length);
             let pokemonResult = pokemonQuery.slice(0, queryCount);
-            res.status(200).json(pokemonResult);
+            res.status(200).json({data:pokemonResult, token: res.token});
         }
     })
 

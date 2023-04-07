@@ -6,6 +6,7 @@ import { useState } from 'react';
 import PageButtons from "../../../Body/PageButtons"
 import { useLocation } from 'react-router-dom';
 import axios from "axios";
+import Reports from "../Reports/Reports";
 
 const Home = ({ headers, setHeaders }) => {
 
@@ -18,7 +19,7 @@ const Home = ({ headers, setHeaders }) => {
     const [refresh, setRefresh] = useState("");
     const [imgs, setImgs] = useState([]);
     const [pokemon, setPokemon] = useState([]);
-
+    const [admin, setAdmin] = useState(false);
 
 
     const setVariables = async () => {
@@ -36,7 +37,11 @@ const Home = ({ headers, setHeaders }) => {
         }
 
         const response    = await axios.get(API_CALL, { headers: authHeaders });
-        const pokemonInfo = response.data;
+        console.log(response.data.token);
+        if(response.data.token.admin){
+            setAdmin(true)
+;        }
+        const pokemonInfo = response.data.data;
 
         pokemonInfo.sort((a, b) => a.id - b.id);
 
@@ -113,7 +118,15 @@ const Home = ({ headers, setHeaders }) => {
 
     }, [pokemon]);
 
+    /**
+     * redirect to admin dashboard
+     */
+    if(admin){ 
+        return <Reports headers={headers}/>
+    }
+
     return (
+    
         <div>
             <NavBar />
             <CheckBoxes selection={selection} setSelection={setSelection} />

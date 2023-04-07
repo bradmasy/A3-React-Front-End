@@ -32,7 +32,7 @@ function App() {
           <Route path="/top-api-users" element={<Graph headers={headers} type={"top-api-users"}/>} />
           <Route path="/top-users-for-each-endpoint" element={<Graph headers={headers} type={"top-users-for-each-endpoint"}/>} />
           <Route path="/400-errors" element={<Graph headers={headers} type={"400-errors"}/>} />
-          <Route path="/recent-errors" element={<div>Recent 400/500 Errors Report</div>} />
+          <Route path="/recent-errors" element={<Graph headers={headers} type={"recent-errors"}/>} />
         </Routes>
       </Router>
     </div>

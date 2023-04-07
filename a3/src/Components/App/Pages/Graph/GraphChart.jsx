@@ -13,24 +13,9 @@ const GraphChart = ({ graphData }) => {
 
     console.log(graphData)
 
-    let dataRef = [];
-
-
-    const options = {
-        plugins: {
-            title: {
-                display: true,
-                text: "Unique-Users By Date"
-            }
-
-        },
-        responsive: true,
-        maintainAspectRatio: false
-    };
-
     useEffect(() => {
-        const chart = async () => {
 
+        const chart = async () => {
 
             let graphTitle;
             let dataSet;
@@ -38,20 +23,10 @@ const GraphChart = ({ graphData }) => {
             let newOptions;
 
             const buildDataSet = async () => {
-                switch (graphData.title) {
-                    case "unique-users":
-                        graphTitle = "Unique Users Sign Up By Date";
-                        dataSet = {
-                            labels: graphData.data.map((row, i) => row._id),
-                            datasets: [
-                                {
-                                    label: 'Amount of Users',
-                                    data: graphData.data.map((row, i) => row.count)
-                                }
-                            ]
-                        }
+                console.log(graphData.title)
 
-                        break;
+                switch (graphData.title) {
+
                     case "top-api-users":
                         console.log("here");
                         type = "bar"
@@ -60,21 +35,29 @@ const GraphChart = ({ graphData }) => {
                             labels: graphData.data.map((row, i) => row.username),
                             datasets: [
                                 {
+                                    
                                     label: 'Amount of Users',
                                     data: graphData.data.map((row, i) => row.accessedLength)
                                 }
                             ]
-
                         }
 
                         newOptions = {
                             animation: false,
+                            scales:{
+                                yAxes: [{
+                                    scaleLabel: {
+                                      display: true,
+                                      labelString: 'My Y Axis Label'
+                                    }
+                                  }]
+                            },
                             plugins: {
                                 legend: {
-                                    display: false
+                                    display: true
                                 },
                                 tooltip: {
-                                    enabled: false
+                                    enabled: true
                                 },
                                 title: {
                                     display: true,
@@ -90,6 +73,7 @@ const GraphChart = ({ graphData }) => {
                             labels: graphData.data.map((row, i) => row._id),
                             datasets: [
                                 {
+                                    title:"Amount",
                                     label: 'Amount of Users',
                                     data: graphData.data.map((row, i) => row.count)
                                 }
@@ -115,57 +99,122 @@ const GraphChart = ({ graphData }) => {
                         break;
                     case "400-errors":
                         graphTitle = "400 Errors";
-                        type = "scatter";
-                        dataSet =
-                        {
-                            labels: graphData.data.map((row, i) => row.date.split("T")[0]),
+                        type = "line";
+                        dataSet = {
+                            labels: graphData.data.map((row, i) => row._id),
+                            datasets: [
+                                {
+                                    label: "Amount of Uses",
+                                    data: graphData.data.map(e => ({
+                                        x: e._id,
+                                        y: e.count
+                                    }))
+                                }
+                            ]
+                        };
+                        newOptions = {
+                            scales: {
+                                yAxes: [{
+                                  ticks: {
+                                    beginAtZero: true
+                                  },
+                                  scaleLabel: {
+                                    display: true,
+                                    labelString: 'Label of Y-axis'
+                                  }
+                                }]
+                              },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                tooltip: {
+                                    enabled: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: graphTitle
+                                }
+                            }
+                        };
+                        break;
+                    case "recent-errors":
+                        graphTitle = `Recent Errors from ${graphData.period.start.split("T")[0]} to ${graphData.period.end.split("T")[0]}`;
+                        console.log("here");
+                        type = "bar"
+                        dataSet = {
+                            labels: graphData.data.map((row, i) => row._id),
                             datasets: [
                                 {
                                     label: 'Amount of Users',
-                                    data: graphData.data.map(e => ({
-                                        x: e.date.split("T")[0],
-                                        y: e.errorNumber
-                                    }))
+                                    data: graphData.data.map((row, i) => row.count)
+                                }
+                            ]
 
+                        }
 
+                        newOptions = {
+                            animation: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                tooltip: {
+                                    enabled: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: graphTitle
+                                }
+                            }
+                        }
+
+                        break;
+                    case "unique-users":
+                        console.log(graphData)
+                        console.log("here unique");
+                      //  chartContainer.chart.destroy();
+                        graphTitle = "Unique Users Sign Up By Date";
+
+                        dataSet = {
+                            labels: graphData.data.map((date, i) => date._id),
+                            datasets: [
+                                {
+                                    label: "users",
+                                    data: graphData.data.map((r, i) => r.count)
                                 }
                             ]
                         }
-                        
-                        newOptions = {
-                            scales: {
-                                x: {
-                                    type: 'linear',
-                                    position: 'bottom'
-                                },
-                                y: {
-                                    type: "linear",
-                                    position: "left"
-                                },
-                                plugins: {
-                                    legend: {
-                                        display: false
-                                    },
-                                    tooltip: {
-                                        enabled: false
-                                    }}
 
+                        newOptions = {
+                            animation: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                tooltip: {
+                                    enabled: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: graphTitle
                                 }
                             }
-                        break;
-                            default:
-                        break;
                         }
+
+                        break;
+                    default:
+                        break;
                 }
+            }
 
-                await buildDataSet();
-                console.log(dataSet)
-
+            await buildDataSet().then(() => {
 
 
                 const chartContainer = document.getElementById("chart-rendering");
-
-                if (chartContainer && chartContainer.chart) {
+           
+                if (graphData.title == "unique-users" || chartContainer && chartContainer.chart) {
+                    console.log("destroying...")
                     chartContainer.chart.destroy(); // Destroy the previous chart instance
                 }
 
@@ -175,11 +224,19 @@ const GraphChart = ({ graphData }) => {
 
                         options: newOptions,
 
-                        data: dataSet
+                        data: dataSet,
+                        id: `${type}`
                     })
-            }
-            chart();
-        }, [graphData])
+
+            });
+            console.log(dataSet)
+
+
+
+
+        }
+        chart();
+    }, [graphData])
 
 
     return (

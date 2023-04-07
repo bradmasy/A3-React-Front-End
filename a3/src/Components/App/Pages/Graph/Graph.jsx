@@ -11,9 +11,6 @@ const getTokens = (headers)=>{
 }
 
 const verifyAdmin = async (headers) =>{
-    // const access = tokens[0];
-    // const refresh = tokens[1];
-
     const requestHeader ={
         "authorization": headers.authorization,
         "Content-Type": "application/json"
@@ -49,7 +46,8 @@ const Graph = ({headers,type}) => {
             }
             const response = await axios.get(`http://localhost:5000/api/v1/db-info/${query}`, { headers:requestHeader });
             console.log(response.data.data.users);
-            setUserData({title: type, data: response.data.data.users});
+            const data = "period" in response.data.data? {title: type, period: response.data.data.period, data:response.data.data.users}:{title: type, data: response.data.data.users};
+            setUserData(data);
             setGraphData(response.data.data);
         }
 
