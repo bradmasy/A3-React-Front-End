@@ -29,9 +29,9 @@ function App() {
           <Route path="/logout" element={<Logout headers={headers} />} />
           <Route path="/reports" element={<Reports headers={headers} />} />
           <Route path="/unique-users" element={<Graph headers={headers} type={"unique-users"}/>} />
-          <Route path="/top-api-users" element={<div>Top API Users Report</div>} />
-          <Route path="/top-users-for-each-endpoint" element={<div>Top Users For Each Endpoint Report</div>} />
-          <Route path="/400-errors" element={<div>400 Errors Report</div>} />
+          <Route path="/top-api-users" element={<Graph headers={headers} type={"top-api-users"}/>} />
+          <Route path="/top-users-for-each-endpoint" element={<Graph headers={headers} type={"top-users-for-each-endpoint"}/>} />
+          <Route path="/400-errors" element={<Graph headers={headers} type={"400-errors"}/>} />
           <Route path="/recent-errors" element={<div>Recent 400/500 Errors Report</div>} />
         </Routes>
       </Router>

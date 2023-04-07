@@ -49,7 +49,7 @@ const Graph = ({headers,type}) => {
             }
             const response = await axios.get(`http://localhost:5000/api/v1/db-info/${query}`, { headers:requestHeader });
             console.log(response.data.data.users);
-            setUserData(response.data.data.users);
+            setUserData({title: type, data: response.data.data.users});
             setGraphData(response.data.data);
         }
 

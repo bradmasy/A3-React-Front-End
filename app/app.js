@@ -66,11 +66,33 @@ const verifyToken = async (req, res, next) => {
         }
 
         const real_token = JWT.verify(access_authHeader.trim(), process.env.ACCESS_TOKEN_SECRET);
+        console.log(real_token);
 
+        console.log(real_token.username);
         if (!real_token || real_token === undefined) {
             throw new InvalidPokeToken("Invalid Token. Log back in for new Tokens.");
         }
 
+        console.log(req.route.path);
+        console.log(req.route);
+
+        const date = new Date();
+        const dateTokens = date.toISOString().split("T");
+        const dateStr = dateTokens[0];
+        const timeTokens = dateTokens[1];
+
+        User.updateOne({ username: real_token.username }, {
+            $push: {
+                accessed: {
+                    route: req.route.path,
+                    date: dateStr,
+                    time: timeTokens
+                }
+            }
+
+        }, (err, result) => {
+            if (err) console.log(err);
+        })
         next();
 
     } catch (err) {
@@ -120,8 +142,7 @@ const authorizeAdmin = async (req, res, next) => {
     let authorizationTokens = parseHeader(header);
     const access_authHeader = authorizationTokens[0]; // req.header("auth-token-access");
     const refresh_authHeader = authorizationTokens[1]; //req.header("auth-token-refresh");
-    console.log(access_authHeader)
-    console.log(refresh_authHeader)
+
 
     const token = JWT.verify(access_authHeader, process.env.ACCESS_TOKEN_SECRET);
     console.log("TOKEN: " + token.username);
@@ -132,6 +153,24 @@ const authorizeAdmin = async (req, res, next) => {
 
             throw new AdminAuthError("Invalid Administrator. No Access Permitted.")
         }
+
+        const date = new Date();
+        const dateTokens = date.toISOString().split("T");
+        const dateStr = dateTokens[0];
+        const timeTokens = dateTokens[1];
+
+        User.updateOne({ username: token.username }, {
+            $push: {
+                accessed: {
+                    route: req.route.path,
+                    date: dateStr,
+                    time: timeTokens
+                }
+            }
+
+        }, (err, result) => {
+            if (err) console.log(err);
+        })
 
         next();
 
@@ -335,25 +374,60 @@ app.get("/api/v1/verify-admin", authorizeAdmin, (req, res) => {
 })
 
 app.get("/api/v1/db-info/:query", authorizeAdmin, (req, res) => {
-    const {query} = req.params;
+    const { query } = req.params;
     console.log(query);
 
-    switch(query){
+    switch (query) {
         case "unique-users":
-            User.find({}, (err, users) => {
-                if (err) {
-                    console.log(err)
-        
-                } else {
-        
-                    res.json({data:{queryName:query, users:users}});
+            User.aggregate([
+                {
+                    $group: {
+                        _id: { $dateToString: { format: "%Y-%m-%d", date: "$dateSignedUp" } },
+                        count: { $sum: 1 }
+                    }
                 }
+            ]).exec((err, result) => {
+                if (err) console.log(err);
+                res.json({ data: { queryName: query, users: result } });
             })
             break;
+        case "top-api-users":
+            User.aggregate([
+                {
+                    $project: {
+                        username: 1,
+                        accessedLength: { $size: {$ifNull:["$accessed",[]]} }
+                    }
+                }
+            ]).exec((err, result) => {
+                if (err) console.log(err);
+                console.log("--------------------------")
+                console.log(result);
+                res.json({ data: { queryName: query, users: result } });
+            })
+        case "top-users-for-each-endpoint":
+            User.aggregate([
+                { $unwind: "$accessed" },
+                { $group: { _id: "$accessed.route", count: { $sum: 1 } } },
+                { $sort: { count: -1 } },
+                { $group: { _id: "$_id", count: { $first: "$count" } } },
+            ]).exec((err,result)=>{
+                console.log(result);
+                res.json({ data: { queryName: query, users: result } });
+            });
+            
+            break;
+        case "400-errors":
+            ErrorLog.find({
+                errorNumber: {$lt: 500}
+            }).sort({date:1})
+            .exec((err,result)=>{
+                res.json({ data: { queryName: query, users: result } });
+            })
         default:
             break;
     }
-   
+
 })
 
 app.post("/api/v1/login", (req, res) => {
