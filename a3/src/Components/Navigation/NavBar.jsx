@@ -12,68 +12,6 @@ const NavBar = () => {
     const [history, updateHistory] = useState("");
     const [pokemon, updatePokemon] = useState("");
 
-
-    /**
-     *   return (
-        <div id="nav-bar-styles">
-            <div id="top-bar">
-                <div id="poke-container">
-                    <img id="poke-img" src={pokemonLogo}></img>
-                </div>
-            </div>
-            <div id="bottom-bar">
-                <div className="link">
-                    Type
-                </div>
-                <div className="link">
-                    Admin
-                </div>
-                <div className="link">
-                    History
-                </div>
-                <div className="link">
-                    Pokemon
-                </div>
-            </div>
-        </div>
-    );
-     */
-
-    /**
-     * 
-        <div id="nav-bar-styles">
-
-            <div id="bottom-bar">
-                <div className="link" id="poke-img-container">
-                    <img id="poke-img" src={pokemonLogo}></img>
-                    <div id="api-title">
-                        The Poke-API
-                    </div>
-                </div>
-                <div id="link-container">
-                </div>
-                <div className="link">
-                    <div className="poke-ball-container">
-                        <img src={pokeBall}></img>
-                    </div>
-                    <div className="title">
-                        <div>
-                            Type
-                        </div>
-                    </div>
-                </div>
-                <div className="link">
-                    Admin
-                </div>
-                <div className="link">
-                    History
-                </div>
-                <div className="link">
-                    Pokemon
-                </div>
-            </div>
-        </div>
-     */
     return (
 
         <div id="nav-bar-styles">
@@ -110,7 +48,7 @@ const NavBar = () => {
                                     </img>
                                 </div>
                                 <div className="link-title">
-                                    <Link to="/dashboard"> Dashboard</Link>
+                                    <Link to="/logout"> Logout</Link>
                                 </div>
                             </div>
                             <div className="link-container">

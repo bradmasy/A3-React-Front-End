@@ -4,8 +4,9 @@ import { Bar } from 'react-chartjs-2';
 import { useRef } from 'react';
 import Chart from 'chart.js/auto'
 import { useState } from 'react';
+import "./GraphChart.css"
 
-const DashboardChart = ({graphData}) => {
+const GraphChart = ({graphData}) => {
 
 
     const chartRef = useRef(null);
@@ -77,4 +78,4 @@ const DashboardChart = ({graphData}) => {
 }
 
 
-export default DashboardChart;
+export default GraphChart;

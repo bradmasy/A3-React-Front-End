@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
     fname:{type: String, required: true},
     lname:{type: String, required: true},
     password:{type:String,required:true},
-    dateSignedUp:{type:Date, required:true}
+    dateSignedUp:{type:Date, required:true},
+    accessed:{type:[Date], required:true}
 
 },{collection:"users"})
 

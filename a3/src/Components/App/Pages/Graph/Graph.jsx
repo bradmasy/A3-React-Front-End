@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NavBar from "../../../Navigation/NavBar";
-import "./Dashboard.css";
-import DashboardChart from "./DashboardChart";
+import "./Graph.css";
+import GraphChart from "./GraphChart";
 import { useEffect } from "react";
 import axios from "axios";
 
@@ -9,6 +9,7 @@ const getTokens = (headers)=>{
     const splitHeader = headers.split(" ");
     return [splitHeader[1], splitHeader[3]];
 }
+
 const verifyAdmin = async (headers) =>{
     // const access = tokens[0];
     // const refresh = tokens[1];
@@ -24,7 +25,7 @@ const verifyAdmin = async (headers) =>{
 }
 
 
-const Dashboard = ({headers}) => {
+const Graph = ({headers,type}) => {
     const [admin, setAdmin] = useState({});
     const [userData, setUserData] = useState([]);
     const [graphData, setGraphData] = useState({});
@@ -39,18 +40,20 @@ const Dashboard = ({headers}) => {
     },[])
 
     console.log(headers);
+
     useEffect(()=>{
-        const accessDB = async ()=>{
+        const accessDB = async (query)=>{
             const requestHeader ={
                 "authorization": headers.authorization,
                 "Content-Type": "application/json"
             }
-            const response = await axios.get("http://localhost:5000/api/v1/db-info", { headers:requestHeader });
-            console.log(response);
-            setUserData(response.data);
-
+            const response = await axios.get(`http://localhost:5000/api/v1/db-info/${query}`, { headers:requestHeader });
+            console.log(response.data.data.users);
+            setUserData(response.data.data.users);
+            setGraphData(response.data.data);
         }
-        accessDB();
+
+        accessDB(type);
 
     },[admin])
 
@@ -70,7 +73,7 @@ const Dashboard = ({headers}) => {
             <div id="chart-container">
                 <div id="chart-container-row">
                     <div id="chart-container-final">
-                    <DashboardChart graphData={userData} />
+                    <GraphChart graphData={userData} />
 
                     </div>
 
@@ -81,4 +84,4 @@ const Dashboard = ({headers}) => {
     )
 }
 
-export default Dashboard;
+export default Graph;

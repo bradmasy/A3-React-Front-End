@@ -52,9 +52,6 @@ const PageButtons = ({ current, setCurrent, amount, start, end, setStart, setEnd
             } value="next">next</button>
         </div>;
         divs.push(div);
-
-
-
         setButtons(divs);
     }
 
@@ -63,7 +60,7 @@ const PageButtons = ({ current, setCurrent, amount, start, end, setStart, setEnd
             await createButtons();
         }
         buttons();
-    }, [start])
+    },[start])
 
 
     return (

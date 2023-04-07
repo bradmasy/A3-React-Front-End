@@ -7,8 +7,9 @@ import ImageContainer from '../Body/ImageContainer';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./Pages/Login/Login";
 import Home from "./Pages/Home/Home"
-import Dashboard from './Pages/Dashboard/Dashboard';
+import Graph from './Pages/Graph/Graph';
 import Reports from './Pages/Reports/Reports';
+import Logout from './Pages/Logout/Logout';
 
 function App() {
 
@@ -25,9 +26,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Login setHeaders={setHeaders} />} />
           <Route path="/home" element={<Home headers={headers} />} />
-          <Route path="/dashboard" element={<Dashboard headers={headers} />} />
-          <Route path="/reports" element={<Reports />} />
-          <Route path="/unique-users" element={<div>Unique Users Report</div>} />
+          <Route path="/logout" element={<Logout headers={headers} />} />
+          <Route path="/reports" element={<Reports headers={headers} />} />
+          <Route path="/unique-users" element={<Graph headers={headers} type={"unique-users"}/>} />
           <Route path="/top-api-users" element={<div>Top API Users Report</div>} />
           <Route path="/top-users-for-each-endpoint" element={<div>Top Users For Each Endpoint Report</div>} />
           <Route path="/400-errors" element={<div>400 Errors Report</div>} />

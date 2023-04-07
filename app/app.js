@@ -2,16 +2,21 @@ const express = require("express");
 const app = express();
 const Pokemon = require("../models/pokemon_model");
 const User = require("../models/user_model")
+const ErrorLog = require("../models/error_model")
 const JWT = require("jsonwebtoken");
 const env = require("dotenv");
 const bcrypt = require("bcryptjs");
 const cors = require("cors");
-const PokeAuthError = require("../exceptions/PokeAuthError");
+const PokeAuthError = require("../exceptions/pokeAuthError");
 const InvalidPokeToken = require("../exceptions/InvalidPokeToken");
 const AdminAuthError = require("../exceptions/AdminAuthError");
 const IllegalArgumentError = require("../exceptions/IllegalArgumentError");
 const IllegalRouteException = require("../exceptions/IllegalRouteException");
-const PokeError = require("../exceptions/PokeError");
+const morgan = require("morgan");
+
+app.use(morgan("dev"));
+
+// const PokeError = require("../exceptions/PokeError");
 
 env.config();
 
@@ -41,16 +46,18 @@ const parseHeader = (headerString) => {
 }
 
 const verifyToken = async (req, res, next) => {
-   // console.log(req);
     let header = req.header("authorization");
     let authorizationTokens = parseHeader(header);
     console.log("header: " + header);
     const access_authHeader = authorizationTokens[0]; //req.header("auth-token-access");
     const refresh_authHeader = authorizationTokens[1];//req.header("auth-token-refresh");
 
+    console.log("ACCESS: " + access_authHeader);
+
     try {
 
         if (!access_authHeader || access_authHeader === "null") {
+
             throw new PokeAuthError("Unauthorized, no access token. Please login again");
         }
 
@@ -67,39 +74,83 @@ const verifyToken = async (req, res, next) => {
         next();
 
     } catch (err) {
+        if (err.name === "TokenExpiredError") {
 
-        if (err.name === "TokenExpiredError") return res.status(403).json({ "status": 403, "error": err.message });
-        if (err.name === "JsonWebTokenError") return res.status(407).json({ "status": 407, "error": err.message });
+            ErrorLog.create({
+                errorNumber: 403,
+                errorName: err.name,
+                errorMessage: err.message,
+                username: "illegal user",
+                date: new Date()
 
-        return res.status(err.errorCode).json({ "status": err.errorCode, "error": err.message });
+            }, (error, log) => {
+                return res.status(403).json({ "status": 403, "error": err.message });
+            })
+        }
+        if (err.name === "JsonWebTokenError") {
+            ErrorLog.create({
+                errorNumber: 407,
+                errorName: err.name,
+                errorMessage: err.message,
+                username: "illegal user",
+                date: new Date()
+
+            }, (error, log) => {
+                return res.status(407).json({ "status": 407, "error": err.message });
+            })
+        }
+
+        ErrorLog.create({
+            errorNumber: err.errorCode,
+            errorName: err.name,
+            errorMessage: err.message,
+            username: "illegal user",
+            date: new Date()
+        }, (error, log) => {
+            return res.status(err.errorCode).json({ "status": err.errorCode, "error": err.message });
+        })
     }
 }
 
 
 const authorizeAdmin = async (req, res, next) => {
     console.log("Trying to authorize")
-
     let header = req.header("authorization");
     console.log(header);
-    console.log(header[0]);
-
     let authorizationTokens = parseHeader(header);
-
     const access_authHeader = authorizationTokens[0]; // req.header("auth-token-access");
     const refresh_authHeader = authorizationTokens[1]; //req.header("auth-token-refresh");
+    console.log(access_authHeader)
+    console.log(refresh_authHeader)
 
-    const token = JWT.verify(access_authHeader.trim(), process.env.ACCESS_TOKEN_SECRET);
-    console.log(token);
+    const token = JWT.verify(access_authHeader, process.env.ACCESS_TOKEN_SECRET);
+    console.log("TOKEN: " + token.username);
     req.token = token;
     try {
 
-        if (!token.admin) throw new AdminAuthError("Invalid Administrator. No Access Permitted.")
+        if (!token.admin) {
+
+            throw new AdminAuthError("Invalid Administrator. No Access Permitted.")
+        }
+
+        next();
+
     } catch (err) {
+
+        ErrorLog.create({
+            errorNumber: err.errorCode,
+            errorMessage: err.message,
+            username: token.username,
+            date: new Date()
+        }, (err, log) => {
+            if (err) console.log(err);
+
+            console.log("error added")
+        })
         console.log(err);
         res.status(err.errorCode).json({ "status": err.errorCode, "error": err.message });
     }
 
-    next();
 }
 
 app.set("view engine", "ejs");
@@ -158,7 +209,7 @@ app.post("/api/v1/register", async (req, res) => {
         password = req.body.password;
         first = req.body.fname;
         last = req.body.lname;
-        admin = true;
+        admin = false;
 
         if (username === undefined
             || password === undefined
@@ -170,14 +221,15 @@ app.post("/api/v1/register", async (req, res) => {
 
         let salt = bcrypt.genSaltSync(10);
         const hashed = await bcrypt.hash(password, salt);
-        
+
         let userData = {
             username: username,
             admin: admin,
             fname: first,
             lname: last,
             password: hashed,
-            dateSignedUp: new Date()
+            dateSignedUp: new Date(),
+            accessed: []
         }
 
         const token = JWT.sign({
@@ -262,27 +314,46 @@ app.get("/api/v1/login", (req, res) => {
     console.log("Login route");
 })
 
-
-app.get("/api/v1/verify-admin",authorizeAdmin, (req,res) => {
+app.get("/api/v1/verify-admin", authorizeAdmin, (req, res) => {
     console.log("VERIFYING")
 
-    if(!req.token){
+    if (!req.token) {
+        ErrorLog.create({
+            errorNumber: 400,
+            errorMessage: "illegal token",
+            username: "illegal user",
+            date: new Date()
+        }, (err, log) => {
+            if (err) console.log(err);
+
+            console.log("error added")
+        })
         res.status(400).json("illegal token");
 
     }
     res.status(200).json(req.token);
 })
 
-app.get("/api/v1/db-info", authorizeAdmin, (req,res)=>{
-    
-    User.find({}, (err,users)=>{
-        if(err){
-            console.log(err)
-        } else {
-            console.log("USERS: " + users);
-            res.json(users);
-        }
-    })
+app.get("/api/v1/db-info/:query", authorizeAdmin, (req, res) => {
+    const {query} = req.params;
+    console.log(query);
+
+    switch(query){
+        case "unique-users":
+            User.find({}, (err, users) => {
+                if (err) {
+                    console.log(err)
+        
+                } else {
+        
+                    res.json({data:{queryName:query, users:users}});
+                }
+            })
+            break;
+        default:
+            break;
+    }
+   
 })
 
 app.post("/api/v1/login", (req, res) => {
@@ -308,9 +379,10 @@ app.post("/api/v1/login", (req, res) => {
                     let accessToken;
                     let refreshToken;
                     let options = { expiresIn: "48hr" };
+                    data.accessed.push(new Date());
 
                     if (data.admin) {
-                       
+
                         accessToken = JWT.sign({ username: _username, admin: true }, process.env.ACCESS_TOKEN_SECRET, options);
                         refreshToken = JWT.sign({ username: _username, admin: true }, process.env.REFRESH_TOKEN_SECRET);
                     } else {
@@ -321,7 +393,6 @@ app.post("/api/v1/login", (req, res) => {
                     let authorization = `Bearer ${accessToken} Refresh ${refreshToken}`;
 
                     res.header("authorization", authorization);
-
                     res.status(200).json({ "Access": accessToken, "Refresh": refreshToken, "authorization": authorization });
 
                 } else {
@@ -342,15 +413,11 @@ app.post("/api/v1/login", (req, res) => {
 // Route # 1
 
 app.get("/api/v1/pokemons/", verifyToken, (req, res) => {
-
+    console.log("pokemons path...")
     let queryCount = req.query.count;
     let queryAfter = req.query.after;
 
-    console.log(queryAfter);
-    console.log(queryCount)
-
     Pokemon.find({}, (err, pokemon) => {
-      //  console.log(pokemon);
         if (err) {
             res.status(400).json("error getting pokemon");
         }
@@ -361,15 +428,13 @@ app.get("/api/v1/pokemons/", verifyToken, (req, res) => {
             let pokemonResult = pokemonQuery.slice(0, queryCount);
             res.status(200).json(pokemonResult);
         }
-
-
     })
 
 
 })
 
 app.get("/api/v1/pokemon-img", verifyToken, (req, res) => {
-
+    console.log("pokemon image route....")
     let imagePaths = [];
 
     const getImage = async (imageId) => {
@@ -395,10 +460,10 @@ app.get("/api/v1/pokemon-img", verifyToken, (req, res) => {
         } else {
             for (let i = 1; i < 809; i++) {
                 let imgUrl = await getImage(i);
-                console.log(imgUrl);
+                //console.log(imgUrl);
                 imagePaths.push(imgUrl);
             }
-            res.status(200).json({"image-paths":imagePaths});
+            res.status(200).json({ "image-paths": imagePaths });
         }
     })
 
@@ -409,7 +474,6 @@ app.get("/api/v1/pokemon-img", verifyToken, (req, res) => {
 
 app.post("/api/v1/pokemon", verifyToken, (req, res) => {
 
-    console.log("req.body: " + req.body.id)
     Pokemon.create(req.body, (err, pokemon) => {
         console.log("pokemon: " + pokemon);
         let json = {};
@@ -437,6 +501,7 @@ app.post("/api/v1/pokemon", verifyToken, (req, res) => {
 // Route # 3
 
 app.get('/api/v1/pokemon/:id', verifyToken, async (req, res) => {
+    console.log("get id pokeomon path...")
     let poke_id = req.params.id;
     const pokemon = await Pokemon.find();
     let poke = pokemon.find(p => p.id == poke_id);
