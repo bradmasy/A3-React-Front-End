@@ -13,7 +13,12 @@ const Profile = ({headers}) => {
     const id = searchParams.get("name");
     const [pokemonInformation,setPokemonInformation] = useState();
     const [pokeImage, setPokeImage] = useState();
-    
+    const pokeStyles = {
+        display: "flex",
+        "flex-direction": "column",
+        height: "100%",
+        width: "100%"
+    }
     console.log(id);
 
     const getPoke = async() => {
@@ -50,7 +55,8 @@ const Profile = ({headers}) => {
         getImg();
     },[pokemonInformation])
 
-    return(<div>
+    return(
+    <div style={pokeStyles}>
         <NavBar/>
         <Pokemon headers={headers} pokeInfo={pokemonInformation} pokeImg={pokeImage}/>
 
