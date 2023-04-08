@@ -549,6 +549,33 @@ app.get("/api/v1/pokemons/", verifyToken, (req, res) => {
 
 })
 
+app.get("/api/v1/pokemon-img/:id",  async (req, res) => {
+   console.log("HITTT")
+    const ID = req.params.id;
+    console.log(ID);
+
+    const getImage = async (imageId) => {
+        let IMAGE_URL = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/thumbnails/${imageId}.png`;
+
+        if (imageId < 10) {
+            IMAGE_URL = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/thumbnails/00${imageId}.png`;
+        }
+        else if (imageId < 100) {
+            IMAGE_URL = `https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/thumbnails/0${imageId}.png`;
+        }
+
+        return IMAGE_URL;
+    }
+
+    const imagePath =  await getImage(ID);
+    console.log(imagePath)
+    res.status(200).json(imagePath);
+        
+    })
+
+
+
+
 app.get("/api/v1/pokemon-img", verifyToken, (req, res) => {
     console.log("pokemon image route....")
     let imagePaths = [];
@@ -615,6 +642,43 @@ app.post("/api/v1/pokemon", verifyToken, (req, res) => {
 })
 
 // Route # 3
+app.get('/api/v1/pokemon-name/:name', async (req, res) => {
+    console.log("get id name pokeomon path...")
+
+    const name = req.params.name.split("=")[1];
+    console.log(name);
+
+    Pokemon.find({"name.english": name},
+     (err,pokemon) => {
+        if(err){
+            console.log(err)
+        }else {
+            console.log(pokemon)
+            res.status(200).json(pokemon)
+        }
+
+     
+     })
+    
+ 
+    //const pokemon = await Pokemon.find();
+    //let poke = pokemon.find(p => p.id == poke_id);
+    //let pokeArr = [poke];
+
+    // if (poke) {
+    //     res.status(200).json(pokeArr);
+    // } else {
+    //     let json = {};
+    //     if (poke_id.search("[^a-zA-Z]{1,}")) {
+    //         json.errMsg = "Cast Error: pass pokemon id between 1 and 811";
+    //     } else {
+    //         json.errMsg = "Pokemon not found";
+    //     }
+
+    //     res.status(404).json(json);
+    // }
+})
+
 
 app.get('/api/v1/pokemon/:id', verifyToken, async (req, res) => {
     console.log("get id pokeomon path...")

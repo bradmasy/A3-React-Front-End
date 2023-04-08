@@ -29,7 +29,7 @@ const NavBar = () => {
                                     </img>
                                 </div>
                                 <div className="link-title">
-                                    <Link to="/"> Home</Link>
+                                    <Link className="link" to="/"> Home</Link>
                                 </div>
 
                             </div>
@@ -39,7 +39,7 @@ const NavBar = () => {
                                     </img>
                                 </div>
                                 <div className="link-title">
-                                <Link to="/"> Login</Link>
+                                <Link className="link" to="/"> Login</Link>
                                 </div>
                             </div>
                             <div className="link-container">
@@ -48,7 +48,7 @@ const NavBar = () => {
                                     </img>
                                 </div>
                                 <div className="link-title">
-                                    <Link to="/logout"> Logout</Link>
+                                    <Link className="link" to="/logout"> Logout</Link>
                                 </div>
                             </div>
                             <div className="link-container">
@@ -57,7 +57,7 @@ const NavBar = () => {
                                     </img>
                                 </div>
                                 <div className="link-title">
-                                    <Link to="/reports">Reports</Link>
+                                    <Link className="link" to="/reports">Reports</Link>
                                 </div>
                             </div>
                         </div>

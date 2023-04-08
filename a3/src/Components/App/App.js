@@ -4,12 +4,13 @@ import NavBar from "../Navigation/NavBar";
 import CheckBoxes from '../Body/CheckBoxes';
 import { useState } from 'react';
 import ImageContainer from '../Body/ImageContainer';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useParams,useLocation } from "react-router-dom";
 import Login from "./Pages/Login/Login";
 import Home from "./Pages/Home/Home"
 import Graph from './Pages/Graph/Graph';
 import Reports from './Pages/Reports/Reports';
 import Logout from './Pages/Logout/Logout';
+import Profile from './Pages/Profile/Profile';
 
 function App() {
 
@@ -19,7 +20,9 @@ function App() {
   const [refreshToken, setRefreshTokens] = useState("");
 
   const [headers, setHeaders] = useState({});
+  const [pokeID, setPokeID] = useState(1);
 
+  
   return (
     <div id="body">
       <Router>
@@ -33,6 +36,7 @@ function App() {
           <Route path="/top-users-for-each-endpoint" element={<Graph headers={headers} type={"top-users-for-each-endpoint"}/>} />
           <Route path="/400-errors" element={<Graph headers={headers} type={"400-errors"}/>} />
           <Route path="/recent-errors" element={<Graph headers={headers} type={"recent-errors"}/>} />
+          <Route path="/profile" element={<Profile headers={headers}/>}/>
         </Routes>
       </Router>
     </div>

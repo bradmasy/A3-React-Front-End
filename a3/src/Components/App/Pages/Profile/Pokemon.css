@@ -1,0 +1,151 @@
+#poke-container{
+    display:flex;
+    border:solid 2px black;
+    height:60%;
+    justify-content: center;
+}
+
+#poke-container #poke-column{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border:solid black 2px;
+    width:25%;
+}
+
+#poke-container #poke-column #poke-row{
+    display: flex;
+    height: 50%;
+    width: 100%;
+}
+
+#poke-container #poke-column #back{
+    display: flex;
+    border:solid black 2px;
+    margin-top: 10%;
+    justify-content: center;
+   
+    padding:1%;
+}
+
+
+#poke-container #poke-column #back button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-family: "indica";
+    color: gold;
+    font-size: 1.5em;
+    width:20%;
+    text-align: center;
+    border-radius: 15px 15px 15px 15px;
+    outline: none;
+    border: none;
+    box-shadow: 2px 2px 7px 2px black;
+    -webkit-text-stroke: 1px black;
+    transition: 1s ease-in-out;
+    background-color: lightcoral;
+}
+
+#poke-container #poke-column #back button:hover{
+    cursor: pointer;
+
+    box-shadow: 2px 2px 7px 2px lightblue;
+
+}
+
+#poke-container #poke-column #poke-row #poke-card{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    background-color: lightcoral;
+    box-shadow: 2px 2px 7px 2px black;
+    opacity: 90%;
+    height: 100%;
+    width: 100%;
+    border-radius: 15px 15px 15px 15px;
+}
+
+#poke-container #poke-column #poke-row #poke-card #info-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 80%;
+}
+
+#poke-container #poke-column #poke-row #poke-card #info-container #info-row{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 80%;
+    height: 100%;
+}
+
+#poke-container #poke-column #poke-row #poke-card #info-container #info-row #poke-img-container{
+    display: flex;
+    width: 100%;
+    height: 70%;
+}
+
+#poke-container #poke-column #poke-row #poke-card #info-container #info-row #poke-img-container{
+    display: flex;
+    
+    justify-content: center;
+    width: 100%;
+    height: 40%;
+}
+
+#poke-container #poke-column #poke-row #poke-card #info-container #info-row #poke-img-container #poke-img{
+    display: flex;
+    box-shadow: 1px 1px 7px 1px black;
+    border-radius: 50%;
+    background-color: lightblue;
+    width: 40%;
+    height: 100%;
+}
+
+
+#poke-container #poke-column #poke-row #poke-card #info-container #info-row  #pokemon-stats-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 50%;
+}
+
+#poke-container #poke-column #poke-row #poke-card #info-container #info-row  #pokemon-stats-container #stats-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: lightblue;
+    padding: 2%;
+    box-shadow: 1px 1px 7px 1px black;
+    border-radius: 15px 15px 15px 15px;
+    width: 80%;
+    height:100%;
+}
+    
+    #poke-container #poke-column #poke-row #poke-card #info-container #info-row  #pokemon-stats-container #stats-column .stats-row{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height:10%;
+    font-family: "indica";
+    color:gold;
+    font-size:2em;
+    -webkit-text-stroke: 1px black;
+}
+
+#poke-container #poke-column #poke-row #poke-card #info-container #info-row  #pokemon-stats-container #stats-column .stats-row progress{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height:100%;
+    font-family: "indica";
+    color:gold;
+    font-size:2em;
+   
+}

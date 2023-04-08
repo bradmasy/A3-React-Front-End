@@ -47,27 +47,27 @@ const Reports = ({ headers }) => {
 
                         <div className="report-link-div">
                             <div className="report-name">
-                                <Link to="/unique-users">Unique Users Report  </Link>
+                                <Link className="link" to="/unique-users">Unique Users Report  </Link>
                             </div>
                         </div>
                         <div className="report-link-div">
                             <div className="report-name">
-                                <Link to="/top-api-users"> Top API Users Report</Link>
+                                <Link  className="link" to="/top-api-users"> Top API Users Report</Link>
                             </div>
                         </div>
                         <div className="report-link-div">
                             <div className="report-name">
-                                <Link to="/top-users-for-each-endpoint">Top Users For Each Endpoint Report</Link>
+                                <Link className="link" to="/top-users-for-each-endpoint">Top Users For Each Endpoint Report</Link>
                             </div>
                         </div>
                         <div className="report-link-div">
                             <div className="report-name">
-                                <Link to="/400-errors"> 400 Errors Report</Link>
+                                <Link className="link" to="/400-errors"> 400 Errors Report</Link>
                             </div>
                         </div>
                         <div className="report-link-div">
                             <div className="report-name">
-                                <Link to="/recent-errors">Recent 400/500 Errors Report</Link>
+                                <Link className="link" to="/recent-errors">Recent 400/500 Errors Report</Link>
                             </div>
                         </div>
                     </div>

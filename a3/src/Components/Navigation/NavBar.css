@@ -19,6 +19,12 @@
     src: url(../Global-Styles/Fonts/PokemonGb-RAeo.ttf);
 }
 
+@font-face {
+    font-family: "indica";
+    src: url(../Global-Styles/Fonts/IndieFlower-Regular.ttf);
+
+}
+
 
 #nav-bar-styles {
     display: flex;
@@ -50,8 +56,8 @@
     justify-content: center;
     height: 100%;
     width: 20%;
-    font-family: "gameboy";
-    font-size: 1.5em;
+    font-family: "indica";
+    font-size: 2em;
     color: gold;
     -webkit-text-stroke: 1px black;
     transition: font-size 0.2s ease-in-out;
@@ -105,8 +111,8 @@
     justify-content: center;
     width: 70%;
     height: 100%;
-    font-family: "gameboy";
-    font-size: 1em;
+    font-family: "indica";
+    font-size: 1.5em;
     background: linear-gradient(to right, blue, red);
     -webkit-background-clip: text;
     background-clip: text;
@@ -115,6 +121,14 @@
     -webkit-text-stroke: 1px black;
     transition: background-position 0.5s ease;
     -webkit-text-fill-color: transparent;
+}
+
+#nav-bar-styles #link-container-column #nav-links-row .link-container .link-title .link{
+    text-decoration: none;
+    color:gold;
+    -webkit-text-stroke: 1px black;
+
+    
 }
 
 #nav-bar-styles #link-container-column #nav-links-row .link-container .link-title:hover{
@@ -127,89 +141,3 @@
 #nav-bar-styles #link-container-column #title-row:hover {
  
 }
-
-
-/*
- #nav-bar-styles #bottom-bar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    height: 100%;
-    padding-top:1%;
-    padding-bottom: 1%;
-    width: 100%;
-    background-color: lightblue;
-    border: solid black 1px;
-}
-
-#nav-bar-styles #bottom-bar #poke-img-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 20%;
-    margin-left:1%;
-    
-}
-
-#nav-bar-styles #bottom-bar #poke-img-container #poke-img{
-    display: flex;
-    height: 100%;
-    width: 40%;
-}
-
-
-#nav-bar-styles #bottom-bar #poke-img-container #api-title{
-    display: flex;
-    width: 60%;
-    border:solid black 2px;
-    justify-content: center;
-
-}
-
-#nav-bar-styles #bottom-bar #link-container{
-
-}
-
-
- #nav-bar-styles #bottom-bar .link {
-     display: flex;
-     height: 90%;
-     width: 20%;
-     justify-content: space-between;
-     font-family: "pokemon-solid";
-     color: gold;
-     border:solid black 2px;
-     -webkit-text-stroke: 1px black;
-     transition: font-size 0.2s ease-in-out;
- }
-
- #nav-bar-styles #bottom-bar .link:hover{
-    font-size:1.5em;
-    cursor: pointer;
- }
-
- #nav-bar-styles #bottom-bar .link .poke-ball-container{
-    display: flex;
-    height: 90%;
-    width: 20%;
-    border:solid 1px black
-}
-
-#nav-bar-styles #bottom-bar .link .title{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    width: 70%;
-    border:solid 1px black
-}
-
-#nav-bar-styles #bottom-bar .link .title div{
-    display: flex;
-    height: 50%;
-    width: 80%;
-
-    border:solid 1px black
-}
-
-*/

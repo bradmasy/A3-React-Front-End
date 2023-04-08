@@ -48,6 +48,7 @@ const PageButtons = ({ current, setCurrent, amount, start, end, setStart, setEnd
                 (e) => {
 
                     setStart(start + 10);
+                 
                 }
             } value="next">next</button>
         </div>;
