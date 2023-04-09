@@ -58,6 +58,7 @@ const Pokemon = ({headers, pokeInfo, pokeImg }) => {
                     </div>
                     <div id="back">
                         <button onClick={(e) => {
+                            
                             nav("/home", {headers: headers});
                         }}>
                             Back

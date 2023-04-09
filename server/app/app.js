@@ -438,7 +438,7 @@ app.get("/api/v1/db-info/:query", authorizeAdmin, (req, res) => {
         case "recent-errors":
             const today = new Date();
             const yesterday = new Date(today);
-            yesterday.setDate(today.getDate() - 1);
+            yesterday.setDate(today.getDate() - 7);
             console.log(today)
             today.setHours(0, 0, 0, 0); // midnight
             console.log(today);
@@ -466,6 +466,19 @@ app.get("/api/v1/db-info/:query", authorizeAdmin, (req, res) => {
 
                 })
             break;
+        case "most-clicked":
+            Pokemon.find({})
+                .sort({ clicks: -1 })
+                .limit(10)
+                .exec((err, pokelist) => {
+                    console.log(pokelist)
+                    res.status(200).json({ data: { queryName: query, users: pokelist } });
+                })
+
+
+
+            break;
+
         default:
             break;
     }
@@ -542,15 +555,15 @@ app.get("/api/v1/pokemons/", verifyToken, (req, res) => {
         } else {
             let pokemonQuery = pokemon.slice(queryAfter, pokemon.length);
             let pokemonResult = pokemonQuery.slice(0, queryCount);
-            res.status(200).json({data:pokemonResult, token: res.token});
+            res.status(200).json({ data: pokemonResult, token: res.token });
         }
     })
 
 
 })
 
-app.get("/api/v1/pokemon-img/:id",  async (req, res) => {
-   console.log("HITTT")
+app.get("/api/v1/pokemon-img/:id", async (req, res) => {
+    console.log("HITTT")
     const ID = req.params.id;
     console.log(ID);
 
@@ -567,11 +580,11 @@ app.get("/api/v1/pokemon-img/:id",  async (req, res) => {
         return IMAGE_URL;
     }
 
-    const imagePath =  await getImage(ID);
+    const imagePath = await getImage(ID);
     console.log(imagePath)
     res.status(200).json(imagePath);
-        
-    })
+
+})
 
 
 
@@ -642,41 +655,39 @@ app.post("/api/v1/pokemon", verifyToken, (req, res) => {
 })
 
 // Route # 3
-app.get('/api/v1/pokemon-name/:name', async (req, res) => {
+app.get('/api/v1/pokemon-name/:name', (req, res) => {
     console.log("get id name pokeomon path...")
 
     const name = req.params.name.split("=")[1];
     console.log(name);
 
-    Pokemon.find({"name.english": name},
-     (err,pokemon) => {
-        if(err){
-            console.log(err)
-        }else {
-            console.log(pokemon)
+    Pokemon.find({ "name.english": name },
+        (err, pokemon) => {
+            if (err) {
+                console.log(err)
+            } else {
+                console.log(pokemon)
+                Pokemon.findOneAndUpdate({ "name.english": name },
+                    { $inc: { clicks: 1 } },
+                    { upsert: true, new: true },
+                    (err, pokemon) => {
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            console.log(pokemon)
+                            console.log("here before sending")
+                        }
+
+
+                    })
+
+            }
+
             res.status(200).json(pokemon)
-        }
 
-     
-     })
-    
- 
-    //const pokemon = await Pokemon.find();
-    //let poke = pokemon.find(p => p.id == poke_id);
-    //let pokeArr = [poke];
+        })
 
-    // if (poke) {
-    //     res.status(200).json(pokeArr);
-    // } else {
-    //     let json = {};
-    //     if (poke_id.search("[^a-zA-Z]{1,}")) {
-    //         json.errMsg = "Cast Error: pass pokemon id between 1 and 811";
-    //     } else {
-    //         json.errMsg = "Pokemon not found";
-    //     }
 
-    //     res.status(404).json(json);
-    // }
 })
 
 

@@ -47,7 +47,7 @@ const Reports = ({ headers }) => {
 
                         <div className="report-link-div">
                             <div className="report-name">
-                                <Link className="link" to="/unique-users">Unique Users Report  </Link>
+                                <Link className="link" to="/most-clicked">Most Clicked  </Link>
                             </div>
                         </div>
                         <div className="report-link-div">

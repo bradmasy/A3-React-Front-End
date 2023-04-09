@@ -1,33 +1,85 @@
-#dashboard-container{
-    display:flex;
+#dashboard-container {
+    display: flex;
     height: 100%;
     flex-direction: column;
-    border:solid black 2px;
 }
 
-#dashboard-container #chart-container{
+#dashboard-container #title {
     display: flex;
-    height: 90%;
-    flex-direction: column;
+    text-align: center;
     justify-content: center;
-    border:solid 2px black;
-    width:100%
+    font-family: "indica";
+    color: gold;
+    -webkit-text-stroke: 1px black;
+    font-size: 2em;
 }
 
-#dashboard-container #chart-container #chart-container-row{
+#dashboard-container #chart-container {
     display: flex;
     height: 50%;
-    flex-direction: row;
+    padding-top: 3%;
+    padding-bottom: 2%;
+    flex-direction: column;
     justify-content: center;
-    border:solid 2px black;
-    width:100%
+    box-shadow: 2px 2px 7px 2px black;
+    background-image: url("../../../../Assets/Images/pikachu-background.jpg");
+    width: 100%
 }
 
-#dashboard-container #chart-container #chart-container-row #chart-container-final{
+#dashboard-container #chart-container #chart-container-row {
     display: flex;
     height: 100%;
     flex-direction: row;
     justify-content: center;
-    border:solid 2px black;
-    width:40%
+    width: 100%;
+    
+}
+
+#dashboard-container #chart-container #chart-container-row #chart-container-final {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    width: 40%;
+    background-color: lightblue;
+    opacity: 90%;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 2px 2px 7px 2px black;
+}
+
+
+#dashboard-container #chart-container #back-button {
+    display: flex;
+    margin-top: 2%;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+#dashboard-container #chart-container #back-button button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-family: "indica";
+    color: gold;
+    font-size: 1.5em;
+    width: 10%;
+    text-align: center;
+    border-radius: 15px 15px 15px 15px;
+    outline: none;
+    border: none;
+    box-shadow: 2px 2px 7px 2px black;
+    -webkit-text-stroke: 1px black;
+    transition: 1s ease-in-out;
+    background-color: lightcoral;
+
+}
+
+
+
+#dashboard-container #chart-container #back-button button:hover {
+
+    cursor: pointer;
+
+    box-shadow: 3px 3px 10px 3px lightblue;
 }

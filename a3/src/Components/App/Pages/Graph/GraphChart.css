@@ -1,8 +1,14 @@
+#container{
+    display: flex;
+    flex-direction: column;
+
+}
+
 #dashboard-chart-container{
     display: flex;
     flex-direction: column;
-    width:75%;
+    width:100%;
     height: 100%;
     justify-content: center;
-    border: solid black 1px;
+    
 }

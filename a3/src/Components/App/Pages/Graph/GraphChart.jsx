@@ -24,6 +24,7 @@ const GraphChart = ({ graphData }) => {
 
             const buildDataSet = async () => {
                 console.log(graphData.title)
+                console.log(graphData)
 
                 switch (graphData.title) {
 
@@ -65,6 +66,48 @@ const GraphChart = ({ graphData }) => {
                                 }
                             }
                         }
+                        break;
+                    case "most-clicked":
+                        console.log("here");
+                        
+                        type = "bar"
+                        graphTitle = "Most Clicked Pokemon"
+
+                        dataSet = {
+                            labels: graphData.data.map((row, i) => row.name.english),
+                            datasets: [
+                                {
+                                    
+                                    label: 'number of clicks',
+                                    data: graphData.data.map((row, i) => row.clicks)
+                                }
+                            ]
+                        }
+
+                        // newOptions = {
+                        //     animation: false,
+                        //     scales:{
+                        //         yAxes: [{
+                        //             scaleLabel: {
+                        //               display: true,
+                        //               labelString: 'My Y Axis Label'
+                        //             }
+                        //           }]
+                        //     },
+                        //     plugins: {
+                        //         legend: {
+                        //             display: true
+                        //         },
+                        //         tooltip: {
+                        //             enabled: true
+                        //         },
+                        //         title: {
+                        //             display: true,
+                        //             text: graphTitle
+                        //         }
+                        //     }
+                        // }
+
                         break;
                     case "top-users-for-each-endpoint":
                         type = "bar"
@@ -240,7 +283,10 @@ const GraphChart = ({ graphData }) => {
 
 
     return (
+        
         <div id="dashboard-chart-container">
+            <div>
+            </div>
             <div>
                 <canvas ref={chartRef} id="chart-rendering">
                 </canvas >

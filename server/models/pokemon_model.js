@@ -5,6 +5,7 @@ const pokemonSchema = new mongoose.Schema({
     name: { type: Object, required: true },
     base:{type: Object, required: true},
     type: { type: [String], required: true },
+    clicks:{type:Number, required:true}
     
 });
 

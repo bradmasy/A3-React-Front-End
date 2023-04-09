@@ -12,6 +12,9 @@ const ImageContainer = ({ imgs, pokemon }) => {
     const secondRow = imgs.slice(3, 6);
     const thirdRow = imgs.slice(6, 9)
 
+    if(pokemon){
+        
+    }
     return (
 
         <div id="imgs-container-column">
@@ -24,7 +27,8 @@ const ImageContainer = ({ imgs, pokemon }) => {
                                 const key = `${img}-${index}`;
                                 return (
                                     <div key={key} className="poke-img-container-container" onClick={(e)=>{
-                                    
+                                        let name = pokemon[(index)].name.english;
+                                        nav("/profile?name=" + name);
                                     }}>
                                         <div className="poke-img-container" key={key}>
                                             <div className="name">
@@ -49,7 +53,9 @@ const ImageContainer = ({ imgs, pokemon }) => {
                             const key = `${img}-${index}`;
                             return (
                                 <div key={key} className="poke-img-container-container" onClick={(e)=>{
+                                    let name = pokemon[(index + 3 )].name.english;
                                     
+                                    nav("/profile?name=" + name);
                                 }}>
                                     <div className="poke-img-container" key={key}>
                                         <div className="name">
@@ -76,8 +82,6 @@ const ImageContainer = ({ imgs, pokemon }) => {
                                 <div key={key} className="poke-img-container-container" onClick={(e)=>{
                                     let name = pokemon[(index + 6)].name.english;
                                     nav("/profile?name=" + name);
-                                    console.log("clicked: " + name);
-
                                 }}>
                                     <div className="poke-img-container" key={key}>
                                         <div className="name">

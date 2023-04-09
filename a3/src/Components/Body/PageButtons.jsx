@@ -3,12 +3,10 @@ import { useState } from "react"
 
 import "./PageButtons.css"
 
-const PageButtons = ({ current, setCurrent, amount, start, end, setStart, setEnd, selection, setSelection }) => {
+const PageButtons = ({ current,limit,setLimit, setCurrent, amount, start, end, setStart, setEnd, selection, setSelection }) => {
 
     const [buttons, setButtons] = useState([]);
-    const [limit, setLimit] = useState(amount);
     const [buttonStart, setButtonStart] = useState(1);
-   // const [current, setCurrent] = useState(start);
     const createButtons = async () => {
 
         let divs = [];
@@ -20,6 +18,7 @@ const PageButtons = ({ current, setCurrent, amount, start, end, setStart, setEnd
                 <button className="button-buttons" value="prev" onClick={
                     (e) => {
                         setStart(start - 1);
+                      
 
                     }
                 }>prev</button>
@@ -28,6 +27,8 @@ const PageButtons = ({ current, setCurrent, amount, start, end, setStart, setEnd
         }
 
         for (let i = start; i <= (parseInt(start) + parseInt(amount) - 1); i++) {
+
+           
 
             let div = <div>
                 <button className="button-buttons" onClick={
@@ -48,7 +49,7 @@ const PageButtons = ({ current, setCurrent, amount, start, end, setStart, setEnd
                 (e) => {
 
                     setStart(start + 10);
-                 
+                    
                 }
             } value="next">next</button>
         </div>;
@@ -61,7 +62,7 @@ const PageButtons = ({ current, setCurrent, amount, start, end, setStart, setEnd
             await createButtons();
         }
         buttons();
-    },[start])
+    },[start,limit])
 
 
     return (

@@ -28,6 +28,7 @@ const [refresh, setRefresh] = useState("");
 const [imgs, setImgs] = useState([]);
 const [pokemon, setPokemon] = useState([]);
 const [admin, setAdmin] = useState(false);
+const [limit, setLimit] = useState(9);
 
 
 const setVariables = async () => {
@@ -105,6 +106,7 @@ useEffect(() => {
         console.log("access: " + access);
         if (access && refresh) {
             const pokes = await getPokeInfo();
+            setLimit(pokes.length);
             setPokemon(pokes);
 
         }
@@ -138,9 +140,9 @@ return (
 
     <div id="home" style={homeStyles}>
         <NavBar />
-        <CheckBoxes selection={selection} setSelection={setSelection} />
+        <CheckBoxes setStart={setStart} selection={selection} setSelection={setSelection} />
         <ImageContainer imgs={imgs} pokemon={pokemon} />
-        <PageButtons current={current} setCurrent={setCurrent} amount={AMOUNT_OF_POKE} start={start} end={end} setStart={setStart} setEnd={setEnd} selection={selection} setSelection={setSelection} />
+        <PageButtons current={current} limit={limit} setLimit={setLimit} setCurrent={setCurrent} amount={AMOUNT_OF_POKE} start={start} end={end} setStart={setStart} setEnd={setEnd} selection={selection} setSelection={setSelection} />
     </div>
 )
 

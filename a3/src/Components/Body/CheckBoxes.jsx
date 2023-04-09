@@ -6,7 +6,7 @@ import { get } from "mongoose";
 
 const POKE_TYPES_URL = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/types.json";
 
-const CheckBoxes = ({ selection, setSelection }) => {
+const CheckBoxes = ({setStart, selection, setSelection }) => {
 
     const [types, setTypes] = useState([]);
 
@@ -30,8 +30,10 @@ const CheckBoxes = ({ selection, setSelection }) => {
                 <div className="checkbox-container">
                     <input type="checkbox" onChange={async (e) => {
                         if (e.target.checked) {
+                            setStart(1);
                             await setSelection([...selection, types[i].english]);
                         } else {
+                            setStart(1);
                             await setSelection(selection.filter(type => type !== types[i].english));
                         }
                     }

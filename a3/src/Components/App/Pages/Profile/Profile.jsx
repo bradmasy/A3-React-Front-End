@@ -15,7 +15,7 @@ const Profile = ({headers}) => {
     const [pokeImage, setPokeImage] = useState();
     const pokeStyles = {
         display: "flex",
-        "flex-direction": "column",
+        "flexDirection": "column",
         height: "100%",
         width: "100%"
     }
